@@ -6,17 +6,17 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/04 23:02:59 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:42:42 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCAST_H
 # define RAYCAST_H
 # include "mlx.h"
-# define W_HEIGHT 360
-# define W_WIDTH 640
-# define BLOCK_SIZE 500
-# define STEP 20
+# define W_HEIGHT 720
+# define W_WIDTH 1280
+# define BLOCK_SIZE 600
+# define STEP 10
 # define WALL_NORTH 0x12d012
 # define WALL_SOUTH 0x0e810e
 # define WALL_EAST 0x347aeb
@@ -111,6 +111,7 @@ struct s_ray_info
 };
 
 void	program_init(t_program *prog);
+int		program_clear(t_program *prog);
 void	put_pixel_at(t_program *prog, int x, int y, int color);
 
 void	draw_rectangle(t_program *prog, t_minirect *form);

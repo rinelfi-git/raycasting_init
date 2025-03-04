@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/04 22:56:13 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/05 00:41:21 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #define MAP_LENGTH 25
 #define MAP_ITEM_LENGTH 23
 
-t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
+static t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
 {
 	t_ray_info	*out;
 
@@ -89,7 +89,7 @@ t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
 	return (out);
 }
 
-void	draw_wall(t_program *pro, int ray, t_ray_info *info)
+static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 {
 	int	line0;
 
@@ -115,7 +115,7 @@ void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 	draw_line(pro, &block);
 }
 
-void	draw_background(t_program *pro)
+static void	draw_background(t_program *pro)
 {
 	t_minirect roof, floor;
 		
@@ -133,7 +133,7 @@ void	draw_background(t_program *pro)
 	draw_rectangle(pro, &floor);
 }
 
-void	draw_3d(t_program *pro)
+static void	draw_3d(t_program *pro)
 {
 	int			ray;
 	float		angle_step;
@@ -154,7 +154,7 @@ void	draw_3d(t_program *pro)
 	}
 }
 
-int	player_will_hurt_wall(t_program *pro, char dir)
+static int	player_will_hurt_wall(t_program *pro, char dir)
 {
 	int map_x, map_y;
 	float delta_x, delta_y;
@@ -187,24 +187,31 @@ int	player_will_hurt_wall(t_program *pro, char dir)
 	return (1);
 }
 
-void	init_player(t_program *pro)
+static void	init_player(t_program *pro)
 {
-	int	player_offset, i, j;
+	int		player_offset;
+	int		i;
+	int		j;
+	float	angle;
 
+	if (!pro || !pro->player || !pro->map)
+		return ;
 	i = 0;
 	player_offset = (int)(BLOCK_SIZE / 2);
+
 	while (i < MAP_LENGTH)
 	{
 		j = 0;
 		while (j < MAP_ITEM_LENGTH)
 		{
-			if (pro->map && pro->map[i][j] == 2)
+			if (pro->map[i][j] == 2)
 			{
+				angle = PI / 2.0;
 				pro->player->x = j * BLOCK_SIZE + player_offset;
 				pro->player->y = i * BLOCK_SIZE + player_offset;
-				pro->player->angle = PI / 2.0;
-				pro->player->delta_x = cosf(pro->player->angle);
-				pro->player->delta_y = sinf(pro->player->angle);
+				pro->player->angle = angle;
+				pro->player->delta_x = cosf(angle);
+				pro->player->delta_y = sinf(angle);
 				pro->player->fov = PI / 3.0;
 				return ;
 			}
@@ -214,12 +221,12 @@ void	init_player(t_program *pro)
 	}
 }
 
-int	need_refresh(t_program *pro)
+static int	need_refresh(t_program *pro)
 {
 	return pro->key_events->w || pro->key_events->d || pro->key_events->s || pro->key_events->q || pro->key_events->arrow_left || pro->key_events->arrow_right;
 }
 
-int	handle_keydown(int code, void *arg)
+static int	handle_keydown(int code, void *arg)
 {
 	t_program	*pro;
 
@@ -236,11 +243,13 @@ int	handle_keydown(int code, void *arg)
 		pro->key_events->arrow_left = 1;
 	if (code == XK_Right)
 		pro->key_events->arrow_right = 1;
+	if (code == XK_Escape)
+		return (program_clear(pro));
 	pro->key_events->move = need_refresh(pro);
 	return (0);
 }
 
-int	handle_keyup(int code, void *arg)
+static int	handle_keyup(int code, void *arg)
 {
 	t_program	*pro;
 
@@ -261,7 +270,7 @@ int	handle_keyup(int code, void *arg)
 	return (0);
 }
 
-int	gameloop(void *arg)
+static int	gameloop(void *arg)
 {
 	t_program	*pro;
 
@@ -290,7 +299,7 @@ int	gameloop(void *arg)
 	}
 	if (pro->key_events->arrow_left) // Flèche gauche (LEFT_ARROW)
 	{
-		pro->player->angle -= 0.05;
+		pro->player->angle -= 0.02;
 		if (pro->player->angle < 0)
 			pro->player->angle += PI * 2;
 		pro->player->delta_x = cosf(pro->player->angle);
@@ -298,7 +307,7 @@ int	gameloop(void *arg)
 	}
 	if (pro->key_events->arrow_right) // Flèche droite (RIGHT_ARROW)
 	{
-		pro->player->angle += 0.05;
+		pro->player->angle += 0.02;
 		if (pro->player->angle > PI * 2)
 			pro->player->angle -= PI * 2;
 		pro->player->delta_x = cosf(pro->player->angle);
@@ -310,7 +319,7 @@ int	gameloop(void *arg)
 	return (0);
 }
 
-void	init_key_event(t_key_event *event)
+static void	init_key_event(t_key_event *event)
 {
 	event->w = 0;
 	event->d = 0;
@@ -321,33 +330,34 @@ void	init_key_event(t_key_event *event)
 	event->move = 1;
 }
 
-int	**load_map(void)
+static void	load_map(t_program *pro)
 {
 	int		fd;
-	int		**map;
 	char	buff[MAP_ITEM_LENGTH + 1];
 
 	fd = open("map.cub", O_RDONLY);
-	map = malloc(sizeof(int *) * MAP_LENGTH);
+	pro->map = malloc(sizeof(int *) * (MAP_LENGTH + 1));
+	if (!pro->map)
+		exit(EXIT_FAILURE);
 	int r, i, j;
 	i = 0;
-	if (!map)
-		exit(1);
 	r = read(fd, buff, MAP_ITEM_LENGTH);
 	while (r > 0)
 	{
-		map[i] = malloc(sizeof(int) * MAP_ITEM_LENGTH);
+		pro->map[i] = malloc(sizeof(int) * MAP_ITEM_LENGTH);
+		if (!pro->map[i])
+			exit(EXIT_FAILURE);
 		j = 0;
-		while (j < MAP_ITEM_LENGTH && buff[j] != '\n')
+		while (buff[j] && buff[j] != '\n')
 		{
-			map[i][j] = buff[j] - '0';
+			pro->map[i][j] = buff[j] - '0';
 			j++;
 		}
 		r = read(fd, buff, MAP_ITEM_LENGTH);
 		i++;
 	}
+	pro->map[i] = NULL;
 	close(fd);
-	return (map);
 }
 
 int	main(void)
@@ -359,13 +369,14 @@ int	main(void)
 	program_init(&prog);
 	prog.player = &player;
 	prog.key_events = &keydown;
-	prog.map = load_map();
+	load_map(&prog);
 	init_player(&prog);
 	init_key_event(&keydown);
 	gameloop(&prog);
 	keydown.move = 0;
 	mlx_hook(prog.win, 3, 1L << 1, handle_keyup, &prog);
 	mlx_hook(prog.win, 2, 1L << 0, handle_keydown, &prog);
+	mlx_hook(prog.win, 17, 0L, program_clear, &prog);
 	mlx_loop_hook(prog.mlx, gameloop, &prog);
 	mlx_loop(prog.mlx);
 	return (0);
