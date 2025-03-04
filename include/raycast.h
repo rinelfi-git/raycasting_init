@@ -6,15 +6,15 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/04 22:56:47 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/04 23:01:09 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCAST_H
 # define RAYCAST_H
 # include "mlx.h"
-# define W_HEIGHT 480
-# define W_WIDTH 640
+# define W_HEIGHT 720
+# define W_WIDTH 1280
 # define BLOCK_SIZE 500
 # define STEP 20
 # define WALL_NORTH 0x12d012
