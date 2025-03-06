@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/05 00:42:42 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:15:56 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define W_HEIGHT 720
 # define W_WIDTH 1280
 # define BLOCK_SIZE 600
+# define TEXTURE_SIZE 4
 # define STEP 10
 # define WALL_NORTH 0x12d012
 # define WALL_SOUTH 0x0e810e
@@ -34,6 +35,7 @@ typedef struct s_player		t_player;
 typedef struct s_ray_info	t_ray_info;
 typedef enum e_direction	t_dir;
 typedef struct s_key_event	t_key_event;
+typedef struct s_texture	t_texture;
 
 enum e_direction
 {
@@ -63,6 +65,13 @@ struct s_pix
 	int		endian;
 };
 
+struct s_texture
+{
+	void	*img;
+	int		width;
+	int		height;
+};
+
 struct s_program
 {
 	void		*mlx;
@@ -71,6 +80,8 @@ struct s_program
 	t_key_event	*key_events;
 	t_player	*player;
 	int			**map;
+	t_texture	*texture;
+	int			**simple_texture;
 };
 
 struct s_miniline

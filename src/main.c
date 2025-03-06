@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/05 00:41:21 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:40:29 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,17 @@ static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 	t_miniline block;
 	t_minirect roof, floor;
 	float correct_distance, line_height;
-	correct_distance = info->length * cosf(info->angle - pro->player->angle);
+	correct_distance = info->length * cosf(pro->player->angle - info->angle);
 	line_height = (BLOCK_SIZE * W_HEIGHT) / correct_distance;
-	line_height = fminf(line_height, W_HEIGHT);
+	float	texture_y_offset = 0;
+	float	texture_step = TEXTURE_SIZE / line_height;
+	if (line_height > W_HEIGHT)
+	{
+		texture_y_offset = (line_height - W_HEIGHT) / 2;
+		line_height = W_HEIGHT;
+	}
 	line0 = (int)(W_HEIGHT / 2.0 - line_height / 2.0);
-	block.start_x = ray;
-	block.end_x = ray;
+	
 	if (info->direction == NORTH)
 		block.color = WALL_NORTH;
 	if (info->direction == EAST)
@@ -110,9 +115,15 @@ static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 		block.color = WALL_SOUTH;
 	if (info->direction == WEST)
 		block.color = WALL_WEST;
-	block.start_y = line0;
-	block.end_y = (int)(line_height + line0);
-	draw_line(pro, &block);
+	int 	y = 0;
+	float	texture_y = texture_y_offset * texture_step;
+	float	texture_x = (int)(info->hit_x / 2.0) % TEXTURE_SIZE;
+	while (y < (int)line_height)
+	{
+		put_pixel_at(pro, ray, y + line0, pro->simple_texture[(int)texture_y][(int)texture_x] == 0 ? 0x000000 : 0xffffff);
+		y++;
+		texture_y += texture_step;
+	}
 }
 
 static void	draw_background(t_program *pro)
