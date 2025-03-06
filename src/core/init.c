@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 19:32:12 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:39:55 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ t_texture	*new_texture(void *mlx, char *path)
 	if (!out)
 		exit(EXIT_FAILURE);
 	out->img = mlx_xpm_file_to_image(mlx, path, &(out->width), &(out->height));
+	printf("OPENING %s\n", path);
 	if (!out->img || out->width != TEXTURE_SIZE || out->height != TEXTURE_SIZE)
 	{
-		mlx_destroy_image(out->img, mlx);
+		printf("ERROR\n");
+		mlx_destroy_image(mlx, out->img);
 		free(out);
 		return (NULL);
 	}
@@ -45,20 +47,10 @@ void	program_init(t_program *prog)
 	pix->img = mlx_new_image(mlx, W_WIDTH, W_HEIGHT);
 	pix->addr = mlx_get_data_addr(pix->img, &pix->bits_per_pixel,
 			&pix->line_length, &pix->endian);
-	prog->texture = NULL;// new_texture(mlx, "bricks.xpm");
-	prog->simple_texture = malloc(sizeof(int *) * TEXTURE_SIZE);
-	i = 0;
-	while (i < TEXTURE_SIZE)
-	{
-		j = 0;
-		prog->simple_texture[i] = malloc(sizeof(int) * TEXTURE_SIZE);
-		color = i % 2;
-		while (j < TEXTURE_SIZE)
-		{
-			prog->simple_texture[i][j++] = (color++) % 2;
-		}
-		i++;
-	}
+	prog->textures[NORTH] = new_texture(mlx, "./bookshelf.xpm");
+	prog->textures[EAST] = new_texture(mlx, "./bookshelf_01.xpm");
+	prog->textures[SOUTH] = new_texture(mlx, "./bookshelf_02.xpm");
+	prog->textures[WEST] = new_texture(mlx, "./bookshelf_03.xpm");
 }
 
 int	program_clear(t_program *prog)
@@ -72,17 +64,11 @@ int	program_clear(t_program *prog)
 			free(prog->map[i++]);
 		free(prog->map);
 	}
-	if (prog->simple_texture)
+	if (prog->textures)
 	{
 		i = 0;
-		while (i < TEXTURE_SIZE)
-			free(prog->simple_texture[i++]);
-		free(prog->simple_texture);
-	}
-	if (prog->texture)
-	{
-		mlx_destroy_image(prog->texture->img, prog->mlx);
-		free(prog->texture);
+		while (i < 4)
+			texture_destroy(prog->mlx, prog->textures[i++]);
 	}
 	if (prog->win)
 		mlx_destroy_window(prog->mlx, prog->win);

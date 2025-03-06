@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 20:48:56 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:59:21 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "mlx.h"
 # define W_HEIGHT 768
 # define W_WIDTH 1024
-# define BLOCK_SIZE 500
-# define TEXTURE_SIZE 4
+# define BLOCK_SIZE 256
+# define TEXTURE_SIZE 64
 # define MOVE_STEP 10
 # define TURN_STEP 0.01
 # define WALL_NORTH 0x12d012
@@ -81,7 +81,7 @@ struct s_program
 	t_key_event	*key_events;
 	t_player	*player;
 	int			**map;
-	t_texture	*texture;
+	t_texture	*textures[4];
 	int			**simple_texture;
 };
 
@@ -107,9 +107,9 @@ struct s_player
 {
 	int		x;
 	int		y;
-	float	angle;
-	float	delta_x;
-	float	delta_y;
+	double	angle;
+	double	delta_x;
+	double	delta_y;
 	float	fov;
 };
 
@@ -125,6 +125,8 @@ struct s_ray_info
 void	program_init(t_program *prog);
 int		program_clear(t_program *prog);
 void	put_pixel_at(t_program *prog, int x, int y, int color);
+int		get_texture_color(t_texture *texture, int x, int y);
+void	texture_destroy(void *mlx, t_texture *texture);
 
 void	draw_rectangle(t_program *prog, t_minirect *form);
 void	draw_square(t_program *prog, int x, int y, int size, int out, int bg);

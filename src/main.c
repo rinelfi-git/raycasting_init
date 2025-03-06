@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 20:48:53 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:31:40 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 	while (y < (int)line_height)
 	{
 		put_pixel_at(pro, ray, y + line0,
-			pro->simple_texture[(int)texture_y][(int)texture_x] == 0 ? 0x000000 : 0xffffff);
+			get_texture_color(pro->textures[info->direction], (int)texture_x,
+				(int)texture_y));
 		y++;
 		texture_y += texture_step;
 	}
@@ -331,17 +332,15 @@ static int	gameloop(void *arg)
 		pro->player->angle -= TURN_STEP;
 		if (pro->player->angle < 0)
 			pro->player->angle += PI * 2;
-		pro->player->delta_x = cosf(pro->player->angle);
-		pro->player->delta_y = sinf(pro->player->angle);
 	}
 	if (pro->key_events->arrow_right) // Flèche droite (RIGHT_ARROW)
 	{
 		pro->player->angle += TURN_STEP;
 		if (pro->player->angle > PI * 2)
 			pro->player->angle -= PI * 2;
-		pro->player->delta_x = cosf(pro->player->angle);
-		pro->player->delta_y = sinf(pro->player->angle);
 	}
+	pro->player->delta_x = cosf(pro->player->angle);
+	pro->player->delta_y = sinf(pro->player->angle);
 	draw_background(pro);
 	draw_3d(pro);
 	mlx_put_image_to_window(pro->mlx, pro->win, pro->pix.img, 0, 0);

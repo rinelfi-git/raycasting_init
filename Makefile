@@ -5,7 +5,8 @@ INCs = -I./include -I./lib/mlx
 SRCs = ./src/main.c \
 		./src/core/draw.c \
 		./src/core/init.c \
-		./src/core/put_pixel.c
+		./src/core/put_pixel.c \
+		./src/raycasting/texture.c
 OBJs = $(SRCs:.c=.o)
 LIBs = -L./lib/mlx -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 LIB_MLX = ./lib/mlx/libmlx.a
