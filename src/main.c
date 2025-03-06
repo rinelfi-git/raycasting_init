@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 22:31:40 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:40:46 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,23 +193,23 @@ static int	player_will_hurt_wall(t_program *pro, char dir)
 	map_y = -1;
 	if (dir == 'w')
 	{
-		map_y = (int)(pro->player->y - delta_y);
-		map_x = (int)(pro->player->x - delta_x);
+		map_y = (int)roundf(pro->player->y - delta_y);
+		map_x = (int)roundf(pro->player->x - delta_x);
 	}
 	if (dir == 's')
 	{
-		map_y = (int)(pro->player->y + delta_y);
-		map_x = (int)(pro->player->x + delta_x);
+		map_y = (int)roundf(pro->player->y + delta_y);
+		map_x = (int)roundf(pro->player->x + delta_x);
 	}
 	if (dir == 'q')
 	{
-		map_y = (int)(pro->player->y + delta_y);
-		map_x = (int)(pro->player->x - delta_x);
+		map_y = (int)roundf(pro->player->y + delta_x);
+		map_x = (int)roundf(pro->player->x - delta_y);
 	}
 	if (dir == 'd')
 	{
-		map_y = (int)(pro->player->y - delta_y);
-		map_x = (int)(pro->player->x + delta_x);
+		map_y = (int)roundf(pro->player->y - delta_x);
+		map_x = (int)roundf(pro->player->x + delta_y);
 	}
 	if (map_x >= 0 && map_y >= 0)
 		return (pro->map[map_y / BLOCK_SIZE][map_x / BLOCK_SIZE] == 1);
@@ -309,23 +309,23 @@ static int	gameloop(void *arg)
 		return (0);
 	if (pro->key_events->w && !player_will_hurt_wall(pro, 'w'))
 	{
-		pro->player->y -= (int)floor(pro->player->delta_y * MOVE_STEP);
-		pro->player->x -= (int)floor(pro->player->delta_x * MOVE_STEP);
+		pro->player->y -= (int)roundf(pro->player->delta_y * MOVE_STEP);
+		pro->player->x -= (int)roundf(pro->player->delta_x * MOVE_STEP);
 	}
 	if (pro->key_events->s && !player_will_hurt_wall(pro, 's'))
 	{
-		pro->player->y += (int)floor(pro->player->delta_y * MOVE_STEP);
-		pro->player->x += (int)floor(pro->player->delta_x * MOVE_STEP);
+		pro->player->y += (int)roundf(pro->player->delta_y * MOVE_STEP);
+		pro->player->x += (int)roundf(pro->player->delta_x * MOVE_STEP);
 	}
 	if (pro->key_events->q && !player_will_hurt_wall(pro, 'q'))
 	{
-		pro->player->y += (int)floor(pro->player->delta_x * MOVE_STEP);
-		pro->player->x -= (int)floor(pro->player->delta_y * MOVE_STEP);
+		pro->player->y += (int)roundf(pro->player->delta_x * MOVE_STEP);
+		pro->player->x -= (int)roundf(pro->player->delta_y * MOVE_STEP);
 	}
 	if (pro->key_events->d && !player_will_hurt_wall(pro, 'd'))
 	{
-		pro->player->y -= (int)floor(pro->player->delta_x * MOVE_STEP);
-		pro->player->x += (int)floor(pro->player->delta_y * MOVE_STEP);
+		pro->player->y -= (int)roundf(pro->player->delta_x * MOVE_STEP);
+		pro->player->x += (int)roundf(pro->player->delta_y * MOVE_STEP);
 	}
 	if (pro->key_events->arrow_left) // Flèche gauche (LEFT_ARROW)
 	{
