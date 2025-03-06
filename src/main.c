@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 23:34:55 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/07 01:02:16 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
 	map_y = (int)floorf(ray_y / BLOCK_SIZE);
 	delta_x = -cosf(ray_angle);
 	delta_y = -sinf(ray_angle);
-	delta_dist_x = fabsf(1.0 / delta_x);
-	delta_dist_y = fabsf(1.0 / delta_y);
+	delta_dist_x = fabs(1.0 / delta_x);
+	delta_dist_y = fabs(1.0 / delta_y);
 	step_x = delta_x < 0 ? -1 : 1;
 	step_y = delta_y < 0 ? -1 : 1;
 	if (delta_x < 0)
@@ -98,7 +98,6 @@ static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 	float	texture_y;
 	float	texture_x;
 
-	t_minirect roof, floor;
 	float correct_distance, line_height;
 	correct_distance = info->length * cosf(pro->player->angle - info->angle);
 	line_height = (BLOCK_SIZE * W_HEIGHT) / correct_distance;
@@ -216,6 +215,7 @@ static void	init_player(t_program *pro)
 
 	i = 0;
 	player_offset = (int)(BLOCK_SIZE / 2);
+	angle = 0;
 	while (i < MAP_LENGTH)
 	{
 		j = 0;

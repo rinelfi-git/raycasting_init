@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 23:17:26 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/07 01:03:46 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ void	program_init(t_program *prog)
 {
 	void	*mlx;
 	t_pix	*pix;
-	int		i;
-	int		j;
-	int		color;
 
 	mlx = mlx_init();
 	pix = &(prog->pix);
@@ -45,10 +42,10 @@ void	program_init(t_program *prog)
 	pix->img = mlx_new_image(mlx, W_WIDTH, W_HEIGHT);
 	pix->addr = mlx_get_data_addr(pix->img, &pix->bits_per_pixel,
 			&pix->line_length, &pix->endian);
-	prog->textures[NORTH] = new_texture(mlx, "./bookshelf.xpm");
-	prog->textures[EAST] = new_texture(mlx, "./bookshelf_01.xpm");
-	prog->textures[SOUTH] = new_texture(mlx, "./bookshelf_02.xpm");
-	prog->textures[WEST] = new_texture(mlx, "./bookshelf_03.xpm");
+	prog->textures[NORTH] = new_texture(mlx, "./textures/wolfenstein/blue_stone.xpm");
+	prog->textures[EAST] = new_texture(mlx, "./textures/wolfenstein/color_stone.xpm");
+	prog->textures[SOUTH] = new_texture(mlx, "./textures/wolfenstein/grey_stone.xpm");
+	prog->textures[WEST] = new_texture(mlx, "./textures/wolfenstein/mossy.xpm");
 	prog->map = NULL;
 	prog->key_events = NULL;
 	prog->player = NULL;
@@ -65,12 +62,9 @@ int	program_clear(t_program *prog)
 			free(prog->map[i++]);
 		free(prog->map);
 	}
-	if (prog->textures)
-	{
-		i = 0;
-		while (i < 4)
-			texture_destroy(prog->mlx, prog->textures[i++]);
-	}
+	i = 0;
+	while (i < 4)
+		texture_destroy(prog->mlx, prog->textures[i++]);
 	if (prog->win)
 		mlx_destroy_window(prog->mlx, prog->win);
 	mlx_destroy_display(prog->mlx);

@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:00:35 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 21:36:22 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/07 01:04:03 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int	get_texture_color(t_texture *texture, int x, int y)
 
 void	texture_destroy(void *mlx, t_texture *texture)
 {
-	mlx_destroy_image(mlx, texture->img);
-	free(texture);
+	if (texture)
+	{
+		mlx_destroy_image(mlx, texture->img);
+		free(texture);
+	}
 }

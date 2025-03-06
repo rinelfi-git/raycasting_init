@@ -1,6 +1,6 @@
 NAME = raycasting
 CC = gcc
-CARG = 
+CARG = -Werror -Wextra -Wall
 INCs = -I./include -I./lib/mlx
 SRCs = ./src/main.c \
 		./src/core/draw.c \
