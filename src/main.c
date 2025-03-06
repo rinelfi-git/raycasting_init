@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 22:40:46 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:59:04 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
 static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 {
 	int			line0;
-	t_miniline	block;
 	float		texture_y_offset;
 	float		texture_step;
 	int			y;
@@ -111,14 +110,6 @@ static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 		line_height = W_HEIGHT;
 	}
 	line0 = (int)(W_HEIGHT / 2.0 - line_height / 2.0);
-	if (info->direction == NORTH)
-		block.color = WALL_NORTH;
-	if (info->direction == EAST)
-		block.color = WALL_EAST;
-	if (info->direction == SOUTH)
-		block.color = WALL_SOUTH;
-	if (info->direction == WEST)
-		block.color = WALL_WEST;
 	y = 0;
 	texture_y = texture_y_offset * texture_step;
 	if (info->direction == NORTH || info->direction == SOUTH)

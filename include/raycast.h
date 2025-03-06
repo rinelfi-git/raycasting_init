@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 22:37:46 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:59:09 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 # define TEXTURE_SIZE 64
 # define MOVE_STEP 5
 # define TURN_STEP 0.01
-# define WALL_NORTH 0x12d012
-# define WALL_SOUTH 0x0e810e
-# define WALL_EAST 0x347aeb
-# define WALL_WEST 0x0341a3
 # define FLOOR 0x926829
 # define ROOF 0x20a7db
 # define PI 3.141592653589793
