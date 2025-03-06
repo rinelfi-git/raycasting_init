@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 18:40:29 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:48:53 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,26 @@ static t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
 
 static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 {
-	int	line0;
+	int			line0;
+	t_miniline	block;
+	float		texture_y_offset;
+	float		texture_step;
+	int			y;
+	float		texture_y;
+	float		texture_x;
 
-	t_miniline block;
 	t_minirect roof, floor;
 	float correct_distance, line_height;
 	correct_distance = info->length * cosf(pro->player->angle - info->angle);
 	line_height = (BLOCK_SIZE * W_HEIGHT) / correct_distance;
-	float	texture_y_offset = 0;
-	float	texture_step = TEXTURE_SIZE / line_height;
+	texture_y_offset = 0;
+	texture_step = TEXTURE_SIZE / line_height;
 	if (line_height > W_HEIGHT)
 	{
 		texture_y_offset = (line_height - W_HEIGHT) / 2;
 		line_height = W_HEIGHT;
 	}
 	line0 = (int)(W_HEIGHT / 2.0 - line_height / 2.0);
-	
 	if (info->direction == NORTH)
 		block.color = WALL_NORTH;
 	if (info->direction == EAST)
@@ -115,12 +119,26 @@ static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 		block.color = WALL_SOUTH;
 	if (info->direction == WEST)
 		block.color = WALL_WEST;
-	int 	y = 0;
-	float	texture_y = texture_y_offset * texture_step;
-	float	texture_x = (int)(info->hit_x / 2.0) % TEXTURE_SIZE;
+	y = 0;
+	texture_y = texture_y_offset * texture_step;
+	if (info->direction == NORTH || info->direction == SOUTH)
+	{
+		texture_x = (int)(info->hit_x / (BLOCK_SIZE / TEXTURE_SIZE))
+			% TEXTURE_SIZE;
+		if (info->angle > PI)
+			texture_x = TEXTURE_SIZE - 1 - texture_x;
+	}
+	else
+	{
+		texture_x = (int)(info->hit_y / (BLOCK_SIZE / TEXTURE_SIZE))
+			% TEXTURE_SIZE;
+		if (info->angle < (PI / 2) || info->angle > (3.0 * PI / 2.0))
+			texture_x = TEXTURE_SIZE - 1 - texture_x;
+	}
 	while (y < (int)line_height)
 	{
-		put_pixel_at(pro, ray, y + line0, pro->simple_texture[(int)texture_y][(int)texture_x] == 0 ? 0x000000 : 0xffffff);
+		put_pixel_at(pro, ray, y + line0,
+			pro->simple_texture[(int)texture_y][(int)texture_x] == 0 ? 0x000000 : 0xffffff);
 		y++;
 		texture_y += texture_step;
 	}
@@ -129,7 +147,6 @@ static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 static void	draw_background(t_program *pro)
 {
 	t_minirect roof, floor;
-		
 	roof.x = 0;
 	roof.y = 0;
 	roof.width = W_WIDTH;
@@ -169,8 +186,8 @@ static int	player_will_hurt_wall(t_program *pro, char dir)
 {
 	int map_x, map_y;
 	float delta_x, delta_y;
-	delta_x = pro->player->delta_x * (STEP * 1.5);
-	delta_y = pro->player->delta_y * (STEP * 1.5);
+	delta_x = pro->player->delta_x * MOVE_STEP * 5;
+	delta_y = pro->player->delta_y * MOVE_STEP * 5;
 	map_x = -1;
 	map_y = -1;
 	if (dir == 'w')
@@ -209,7 +226,6 @@ static void	init_player(t_program *pro)
 		return ;
 	i = 0;
 	player_offset = (int)(BLOCK_SIZE / 2);
-
 	while (i < MAP_LENGTH)
 	{
 		j = 0;
@@ -234,7 +250,9 @@ static void	init_player(t_program *pro)
 
 static int	need_refresh(t_program *pro)
 {
-	return pro->key_events->w || pro->key_events->d || pro->key_events->s || pro->key_events->q || pro->key_events->arrow_left || pro->key_events->arrow_right;
+	return (pro->key_events->w || pro->key_events->d || pro->key_events->s
+		|| pro->key_events->q || pro->key_events->arrow_left
+		|| pro->key_events->arrow_right);
 }
 
 static int	handle_keydown(int code, void *arg)
@@ -277,7 +295,7 @@ static int	handle_keyup(int code, void *arg)
 		pro->key_events->arrow_left = 0;
 	if (code == XK_Right)
 		pro->key_events->arrow_right = 0;
-		pro->key_events->move = need_refresh(pro);
+	pro->key_events->move = need_refresh(pro);
 	return (0);
 }
 
@@ -290,27 +308,27 @@ static int	gameloop(void *arg)
 		return (0);
 	if (pro->key_events->w && !player_will_hurt_wall(pro, 'w'))
 	{
-		pro->player->y -= (int)ceilf(pro->player->delta_y * STEP);
-		pro->player->x -= (int)ceilf(pro->player->delta_x * STEP);
+		pro->player->y -= (int)floor(pro->player->delta_y * MOVE_STEP);
+		pro->player->x -= (int)floor(pro->player->delta_x * MOVE_STEP);
 	}
 	if (pro->key_events->s && !player_will_hurt_wall(pro, 's'))
 	{
-		pro->player->y += (int)ceilf(pro->player->delta_y * STEP);
-		pro->player->x += (int)ceilf(pro->player->delta_x * STEP);
+		pro->player->y += (int)floor(pro->player->delta_y * MOVE_STEP);
+		pro->player->x += (int)floor(pro->player->delta_x * MOVE_STEP);
 	}
 	if (pro->key_events->q && !player_will_hurt_wall(pro, 'q'))
 	{
-		pro->player->y += (int)ceilf(pro->player->delta_x * STEP);
-		pro->player->x -= (int)ceilf(pro->player->delta_y * STEP);
+		pro->player->y += (int)floor(pro->player->delta_x * MOVE_STEP);
+		pro->player->x -= (int)floor(pro->player->delta_y * MOVE_STEP);
 	}
 	if (pro->key_events->d && !player_will_hurt_wall(pro, 'd'))
 	{
-		pro->player->y -= (int)ceilf(pro->player->delta_x * STEP);
-		pro->player->x += (int)ceilf(pro->player->delta_y * STEP);
+		pro->player->y -= (int)floor(pro->player->delta_x * MOVE_STEP);
+		pro->player->x += (int)floor(pro->player->delta_y * MOVE_STEP);
 	}
 	if (pro->key_events->arrow_left) // Flèche gauche (LEFT_ARROW)
 	{
-		pro->player->angle -= 0.02;
+		pro->player->angle -= TURN_STEP;
 		if (pro->player->angle < 0)
 			pro->player->angle += PI * 2;
 		pro->player->delta_x = cosf(pro->player->angle);
@@ -318,7 +336,7 @@ static int	gameloop(void *arg)
 	}
 	if (pro->key_events->arrow_right) // Flèche droite (RIGHT_ARROW)
 	{
-		pro->player->angle += 0.02;
+		pro->player->angle += TURN_STEP;
 		if (pro->player->angle > PI * 2)
 			pro->player->angle -= PI * 2;
 		pro->player->delta_x = cosf(pro->player->angle);

@@ -6,18 +6,19 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 18:15:56 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:48:56 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCAST_H
 # define RAYCAST_H
 # include "mlx.h"
-# define W_HEIGHT 720
-# define W_WIDTH 1280
-# define BLOCK_SIZE 600
+# define W_HEIGHT 768
+# define W_WIDTH 1024
+# define BLOCK_SIZE 500
 # define TEXTURE_SIZE 4
-# define STEP 10
+# define MOVE_STEP 10
+# define TURN_STEP 0.01
 # define WALL_NORTH 0x12d012
 # define WALL_SOUTH 0x0e810e
 # define WALL_EAST 0x347aeb
