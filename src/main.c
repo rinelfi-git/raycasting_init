@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 22:59:04 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:34:55 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
-#define MAP_LENGTH 25
+#define MAP_LENGTH 21
 #define MAP_ITEM_LENGTH 23
 
 static t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
@@ -72,12 +72,12 @@ static t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
 			out->direction = step_y < 0 ? NORTH : SOUTH;
 		}
 		if (map_y < 0 || map_y > MAP_LENGTH || map_x < 0
-			|| map_x > MAP_ITEM_LENGTH)
+			|| map_x >= MAP_ITEM_LENGTH)
 		{
 			out->length = MAP_LENGTH * MAP_ITEM_LENGTH * BLOCK_SIZE;
 			break ;
 		}
-		if (pro->map[map_y][map_x] == 1)
+		if (pro->map[map_y][map_x] == '1')
 		{
 			hit = 1;
 			out->hit_x = ray_x;
@@ -91,12 +91,12 @@ static t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
 
 static void	draw_wall(t_program *pro, int ray, t_ray_info *info)
 {
-	int			line0;
-	float		texture_y_offset;
-	float		texture_step;
-	int			y;
-	float		texture_y;
-	float		texture_x;
+	int		line0;
+	float	texture_y_offset;
+	float	texture_step;
+	int		y;
+	float	texture_y;
+	float	texture_x;
 
 	t_minirect roof, floor;
 	float correct_distance, line_height;
@@ -203,7 +203,7 @@ static int	player_will_hurt_wall(t_program *pro, char dir)
 		map_x = (int)roundf(pro->player->x + delta_y);
 	}
 	if (map_x >= 0 && map_y >= 0)
-		return (pro->map[map_y / BLOCK_SIZE][map_x / BLOCK_SIZE] == 1);
+		return (pro->map[map_y / BLOCK_SIZE][map_x / BLOCK_SIZE] == '1');
 	return (1);
 }
 
@@ -214,8 +214,6 @@ static void	init_player(t_program *pro)
 	int		j;
 	float	angle;
 
-	if (!pro || !pro->player || !pro->map)
-		return ;
 	i = 0;
 	player_offset = (int)(BLOCK_SIZE / 2);
 	while (i < MAP_LENGTH)
@@ -223,9 +221,17 @@ static void	init_player(t_program *pro)
 		j = 0;
 		while (j < MAP_ITEM_LENGTH)
 		{
-			if (pro->map[i][j] == 2)
+			if (pro->map[i][j] && pro->map[i][j] != '1'
+				&& pro->map[i][j] != '0')
 			{
-				angle = PI / 2.0;
+				if (pro->map[i][j] == 'N')
+					angle = PI / 2.0;
+				else if (pro->map[i][j] == 'E')
+					angle = PI;
+				else if (pro->map[i][j] == 'S')
+					angle = 3.0 * PI / 2.0;
+				else if (pro->map[i][j] == 'W')
+					angle = 0;
 				pro->player->x = j * BLOCK_SIZE + player_offset;
 				pro->player->y = i * BLOCK_SIZE + player_offset;
 				pro->player->angle = angle;
@@ -352,27 +358,29 @@ static void	init_key_event(t_key_event *event)
 static void	load_map(t_program *pro)
 {
 	int		fd;
-	char	buff[MAP_ITEM_LENGTH + 1];
+	char	buff[MAP_ITEM_LENGTH];
 
 	fd = open("map.cub", O_RDONLY);
-	pro->map = malloc(sizeof(int *) * (MAP_LENGTH + 1));
+	pro->map = malloc(sizeof(char *) * (MAP_LENGTH + 1));
 	if (!pro->map)
 		exit(EXIT_FAILURE);
 	int r, i, j;
 	i = 0;
-	r = read(fd, buff, MAP_ITEM_LENGTH);
-	while (r > 0)
+	while (i <= MAP_LENGTH)
+		pro->map[i++] = NULL;
+	i = 0;
+	while ((r = read(fd, buff, MAP_ITEM_LENGTH - 1)) > 0)
 	{
-		pro->map[i] = malloc(sizeof(int) * MAP_ITEM_LENGTH);
+		pro->map[i] = malloc(sizeof(char) * MAP_ITEM_LENGTH);
 		if (!pro->map[i])
 			exit(EXIT_FAILURE);
 		j = 0;
-		while (buff[j] && buff[j] != '\n')
+		while (j < r && buff[j] && buff[j] != '\n')
 		{
-			pro->map[i][j] = buff[j] - '0';
+			pro->map[i][j] = buff[j];
 			j++;
 		}
-		r = read(fd, buff, MAP_ITEM_LENGTH);
+		pro->map[i][j] = 0;
 		i++;
 	}
 	pro->map[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 22:59:09 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/07 00:10:20 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # define W_WIDTH 1024
 # define BLOCK_SIZE 256
 # define TEXTURE_SIZE 64
-# define MOVE_STEP 5
-# define TURN_STEP 0.01
+# define MOVE_STEP 3
+# define TURN_STEP 0.015
 # define FLOOR 0x926829
 # define ROOF 0x20a7db
 # define PI 3.141592653589793
@@ -76,9 +76,8 @@ struct s_program
 	t_pix		pix;
 	t_key_event	*key_events;
 	t_player	*player;
-	int			**map;
+	char		**map;
 	t_texture	*textures[4];
-	int			**simple_texture;
 };
 
 struct s_miniline

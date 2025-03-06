@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/06 21:39:55 by erijania         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:17:26 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ t_texture	*new_texture(void *mlx, char *path)
 	if (!out)
 		exit(EXIT_FAILURE);
 	out->img = mlx_xpm_file_to_image(mlx, path, &(out->width), &(out->height));
-	printf("OPENING %s\n", path);
 	if (!out->img || out->width != TEXTURE_SIZE || out->height != TEXTURE_SIZE)
 	{
-		printf("ERROR\n");
 		mlx_destroy_image(mlx, out->img);
 		free(out);
 		return (NULL);
@@ -51,6 +49,9 @@ void	program_init(t_program *prog)
 	prog->textures[EAST] = new_texture(mlx, "./bookshelf_01.xpm");
 	prog->textures[SOUTH] = new_texture(mlx, "./bookshelf_02.xpm");
 	prog->textures[WEST] = new_texture(mlx, "./bookshelf_03.xpm");
+	prog->map = NULL;
+	prog->key_events = NULL;
+	prog->player = NULL;
 }
 
 int	program_clear(t_program *prog)
