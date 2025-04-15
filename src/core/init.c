@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/07 01:03:46 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/04 09:06:57 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	program_clear(t_program *prog)
 		texture_destroy(prog->mlx, prog->textures[i++]);
 	if (prog->win)
 		mlx_destroy_window(prog->mlx, prog->win);
+	mlx_destroy_image(prog->mlx, prog->pix.img);
 	mlx_destroy_display(prog->mlx);
 	free(prog->mlx);
 	exit(0);

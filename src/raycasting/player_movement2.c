@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast.c                                             :+:      :+:    :+:   */
+/*   player_movement2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 02:46:22 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/03 02:49:02 by erijania         ###   ########.fr       */
+/*   Created: 2025/04/15 23:14:28 by erijania          #+#    #+#             */
+/*   Updated: 2025/04/15 23:19:31 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycast.h"
 
-void	cast(t_player *player)
+void	turn_left(t_player *player)
 {
-	float	angle_step;
-	float	angle_step;
-	int		ray;
-	
-	ray = 0;
-	while (ray < W_WIDTH)
-	{
-		ray++;
-	}
+	player->angle -= TURN_STEP;
+	if (player->angle < 0)
+		player->angle += PI * 2;
+}
+void	turn_right(t_player *player)
+{
+	player->angle += TURN_STEP;
+	if (player->angle > PI * 2)
+		player->angle -= PI * 2;
 }

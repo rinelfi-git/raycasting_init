@@ -6,6 +6,14 @@ SRCs = ./src/main.c \
 		./src/core/draw.c \
 		./src/core/init.c \
 		./src/core/put_pixel.c \
+		./src/raycasting/collision_detector1.c \
+		./src/raycasting/collision_detector2.c \
+		./src/raycasting/dda1.c \
+		./src/raycasting/dda2.c \
+		./src/raycasting/draw_wall.c \
+		./src/raycasting/event_listener.c \
+		./src/raycasting/player_movement1.c \
+		./src/raycasting/player_movement2.c \
 		./src/raycasting/texture.c
 OBJs = $(SRCs:.c=.o)
 LIBs = -L./lib/mlx -lmlx -L/usr/lib -lXext -lX11 -lm -lz
