@@ -6,24 +6,24 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:00:10 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:32:46 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:22:30 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycast.h"
 
-void	init_get_ray_info_var(t_ray_info_var *, t_program *, double);
-t_ray_info	*create_ray_info(double);
-void	update_ray_hit_horizontal(t_ray_info_var *);
-void	update_ray_hit_vertical(t_ray_info_var *);
+void		init_local(t_ray_info_var *var, t_cub3d *cub, double angle);
+t_ray_info	*create_ray_info(double angle);
+void		update_ray_hit_horizontal(t_ray_info_var *var);
+void		update_ray_hit_vertical(t_ray_info_var *var);
 
-static void	handle_ray_hit_wall(t_ray_info_var *var, t_program *pro)
+static void	handle_ray_hit_wall(t_ray_info_var *var, t_cub3d *pro)
 {
 	var->hit = 1;
-	var->info->hit_x = var->ray_x;
-	var->info->hit_y = var->ray_y;
-	var->info->length = sqrt(pow(var->ray_x - pro->player->x, 2)
-			+ pow(var->ray_y - pro->player->y, 2));
+	var->info->hit_x = var->rx;
+	var->info->hit_y = var->ry;
+	var->info->length = sqrt(pow(var->rx - pro->player->x, 2)
+			+ pow(var->ry - pro->player->y, 2));
 }
 
 static void	handle_ray_overflow(t_ray_info_var *var)
@@ -32,27 +32,28 @@ static void	handle_ray_overflow(t_ray_info_var *var)
 	var->hit = 1;
 }
 
-t_ray_info	*get_ray_info(t_program *pro, float ray_angle)
+t_ray_info	*get_ray_info(t_cub3d *cub, float ray_angle)
 {
 	t_ray_info_var	var;
 
-	init_get_ray_info_var(&var, pro, ray_angle);
+	init_local(&var, cub, ray_angle);
 	var.info = create_ray_info(ray_angle);
 	while (!var.hit)
 	{
-		if (var.next_dist_x < var.next_dist_y)
+		if (var.next_x < var.next_y)
 			update_ray_hit_horizontal(&var);
 		else
 			update_ray_hit_vertical(&var);
-		if (var.map_y < 0 || var.map_y > MAP_LENGTH || var.map_x < 0
-			|| var.map_x >= MAP_ITEM_LENGTH)
+		if (var.my < 0 || var.my > MAP_LENGTH || var.mx < 0
+			|| var.mx >= MAP_ITEM_LENGTH)
 			handle_ray_overflow(&var);
-		if (pro->map[var.map_y][var.map_x] == '1')
-			handle_ray_hit_wall(&var, pro);
+		if (cub->map[var.my][var.mx] == '1')
+			handle_ray_hit_wall(&var, cub);
 	}
 	return (var.info);
 }
-void	cast_rays(t_program *pro)
+
+void	cast_rays(t_cub3d *cub)
 {
 	int			ray;
 	float		angle_step;
@@ -61,13 +62,13 @@ void	cast_rays(t_program *pro)
 	t_ray_info	*ray_info;
 
 	ray = 0;
-	angle_step = pro->player->fov / W_WIDTH;
-	start_angle = pro->player->angle - pro->player->fov / 2.0;
+	angle_step = cub->player->fov / W_WIDTH;
+	start_angle = cub->player->angle - cub->player->fov / 2.0;
 	while (ray <= W_WIDTH)
 	{
 		ray_angle = start_angle + (ray * angle_step);
-		ray_info = get_ray_info(pro, ray_angle);
-		draw_wall(pro, ray, ray_info);
+		ray_info = get_ray_info(cub, ray_angle);
+		draw_wall(cub, ray, ray_info);
 		free(ray_info);
 		ray++;
 	}

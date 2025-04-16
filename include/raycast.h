@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:34:50 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:22:30 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 # define MOVE_RIGHT 'd'
 # define MAP_LENGTH 21
 # define MAP_ITEM_LENGTH 23
+# define TEXTURE_NORTH "./textures/wolfenstein/blue_stone.xpm"
+# define TEXTURE_SOUTH "./textures/wolfenstein/grey_stone.xpm"
+# define TEXTURE_EAST "./textures/wolfenstein/mossy.xpm"
+# define TEXTURE_WEST "./textures/wolfenstein/blue_stone.xpm"
 # include "mlx.h"
 # include <stdio.h>
 # include <fcntl.h>
@@ -35,7 +39,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_program		t_program;
+typedef struct s_cub3d			t_cub3d;
 typedef struct s_pix			t_pix;
 typedef struct s_miniline		t_miniline;
 typedef struct s_minirect		t_minirect;
@@ -52,16 +56,16 @@ typedef struct s_ray_info_var	t_ray_info_var;
 struct							s_ray_info_var
 {
 	t_ray_info					*info;
-	double						ray_x;
-	double						ray_y;
-	double						delta_x;
-	double						delta_y;
+	double						rx;
+	double						ry;
+	double						dx;
+	double						dy;
 	double						delta_dist_x;
 	double						delta_dist_y;
-	double						next_dist_x;
-	double						next_dist_y;
-	int							map_x;
-	int							map_y;
+	double						next_x;
+	double						next_y;
+	int							mx;
+	int							my;
 	int							step_x;
 	int							step_y;
 	int							hit;
@@ -121,7 +125,7 @@ struct							s_texture
 	int							height;
 };
 
-struct							s_program
+struct							s_cub3d
 {
 	void						*mlx;
 	void						*win;
@@ -169,31 +173,30 @@ struct							s_ray_info
 	float						angle;
 };
 
-void	program_init(t_program *);
-int		program_clear(t_program *);
-void	put_pixel_at(t_program *, int, int, int);
-int		get_texture_color(t_texture *, int, int);
-void	texture_destroy(void *, t_texture *);
+void	program_init(t_cub3d *pro);
+int		program_clear(t_cub3d *pro);
+void	put_pixel_at(t_cub3d *pro, int x, int y, int color);
+int		get_texture_color(t_texture *texture, int x, int y);
+void	texture_destroy(void *mlx, t_texture *texture);
 
-void	draw_rectangle(t_program *, t_minirect *);
-void	draw_square(t_program *, int, int, int, int, int);
-void	draw_line(t_program *, t_miniline *);
-void	screen_clean(t_program *);
+void	draw_rectangle(t_cub3d *pro, t_minirect *rect);
+void	draw_line(t_cub3d *pro, t_miniline *line);
+void	screen_clean(t_cub3d *pro);
 
-void	init_key_event(t_key_event *);
-int		handle_keyup(int, void *);
-int		handle_keydown(int, void *);
+void	init_key_event(t_key_event *event);
+int		handle_keyup(int code, void *event);
+int		handle_keydown(int code, void *event);
 
-void	move_forward(t_player *);
-void	move_backward(t_player *);
-void	move_left(t_player *);
-void	move_right(t_player *);
-void	turn_right(t_player *);
-void	turn_left(t_player *);
+void	move_forward(t_player *player);
+void	move_backward(t_player *player);
+void	move_left(t_player *player);
+void	move_right(t_player *player);
+void	turn_right(t_player *player);
+void	turn_left(t_player *player);
 
-int		player_will_hurt_wall(t_program *, char);
+int		player_will_hurt_wall(t_cub3d *pro, char direction);
 
-void	draw_background(t_program *);
-void	cast_rays(t_program *);
-void	draw_wall(t_program *, int, t_ray_info *);
+void	draw_background(t_cub3d *pro);
+void	cast_rays(t_cub3d *pro);
+void	draw_wall(t_cub3d *pro, int ray_index, t_ray_info *info);
 #endif

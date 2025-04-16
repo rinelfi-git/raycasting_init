@@ -6,14 +6,14 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:15:19 by erijania          #+#    #+#             */
-/*   Updated: 2025/03/04 22:50:05 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:09:21 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycast.h"
 #include <math.h>
 
-void	draw_rectangle(t_program *pro, t_minirect *form)
+void	draw_rectangle(t_cub3d *cub, t_minirect *form)
 {
 	int	i;
 	int	j;
@@ -23,30 +23,12 @@ void	draw_rectangle(t_program *pro, t_minirect *form)
 	{
 		i = form->x;
 		while (i < (form->x + form->width))
-			put_pixel_at(pro, i++, j, form->bg_color);
+			put_pixel_at(cub, i++, j, form->bg_color);
 		j++;
 	}
 }
 
-void	draw_square(t_program *prog, int x, int y, int size, int out, int bg)
-{
-	int	i;
-	int	j;
-
-	j = y;
-	while (j <= y + size)
-	{
-		i = x;
-		while (i <= x + size)
-			if (i == x || j == y)
-				put_pixel_at(prog, i++, j, out);
-			else
-				put_pixel_at(prog, i++, j, bg);
-		j++;
-	}
-}
-
-void	draw_line(t_program *prog, t_miniline *line)
+void	draw_line(t_cub3d *prog, t_miniline *line)
 {
 	float	deltas[2];
 	float	pixels[2];
@@ -70,7 +52,7 @@ void	draw_line(t_program *prog, t_miniline *line)
 	}
 }
 
-void	screen_clean(t_program *prog)
+void	screen_clean(t_cub3d *prog)
 {
 	int	i;
 	int	j;

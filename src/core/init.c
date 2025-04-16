@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/04 09:06:57 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:12:36 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 t_texture	*new_texture(void *mlx, char *path)
 {
-	t_texture *out;
-	
+	t_texture	*out;
+
 	out = malloc(sizeof(t_texture));
 	if (!out)
 		exit(EXIT_FAILURE);
@@ -30,28 +30,28 @@ t_texture	*new_texture(void *mlx, char *path)
 	return (out);
 }
 
-void	program_init(t_program *prog)
+void	program_init(t_cub3d *cub)
 {
 	void	*mlx;
 	t_pix	*pix;
 
 	mlx = mlx_init();
-	pix = &(prog->pix);
-	prog->mlx = mlx;
-	prog->win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "Ray casting");
+	pix = &(cub->pix);
+	cub->mlx = mlx;
+	cub->win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "Ray casting");
 	pix->img = mlx_new_image(mlx, W_WIDTH, W_HEIGHT);
 	pix->addr = mlx_get_data_addr(pix->img, &pix->bits_per_pixel,
 			&pix->line_length, &pix->endian);
-	prog->textures[NORTH] = new_texture(mlx, "./textures/wolfenstein/blue_stone.xpm");
-	prog->textures[EAST] = new_texture(mlx, "./textures/wolfenstein/color_stone.xpm");
-	prog->textures[SOUTH] = new_texture(mlx, "./textures/wolfenstein/grey_stone.xpm");
-	prog->textures[WEST] = new_texture(mlx, "./textures/wolfenstein/mossy.xpm");
-	prog->map = NULL;
-	prog->key_events = NULL;
-	prog->player = NULL;
+	cub->textures[NORTH] = new_texture(mlx, TEXTURE_NORTH);
+	cub->textures[EAST] = new_texture(mlx, TEXTURE_EAST);
+	cub->textures[SOUTH] = new_texture(mlx, TEXTURE_SOUTH);
+	cub->textures[WEST] = new_texture(mlx, TEXTURE_WEST);
+	cub->map = NULL;
+	cub->key_events = NULL;
+	cub->player = NULL;
 }
 
-int	program_clear(t_program *prog)
+int	program_clear(t_cub3d *prog)
 {
 	int	i;
 

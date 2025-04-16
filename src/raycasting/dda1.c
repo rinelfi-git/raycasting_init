@@ -6,37 +6,32 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:00:10 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:08:12 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:28:01 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycast.h"
 
-void	init_get_ray_info_var(t_ray_info_var *var, t_program *pro,
-		double angle)
+void	init_local(t_ray_info_var *var, t_cub3d *cub, double angle)
 {
-	var->ray_x = pro->player->x;
-	var->ray_y = pro->player->y;
-	var->map_x = (int)floor(var->ray_x / BLOCK_SIZE);
-	var->map_y = (int)floor(var->ray_y / BLOCK_SIZE);
-	var->delta_x = -cos(angle);
-	var->delta_y = -sin(angle);
-	var->delta_dist_x = fabs(1.0 / var->delta_x);
-	var->delta_dist_y = fabs(1.0 / var->delta_y);
-	var->step_x = var->delta_x < 0 ? -1 : 1;
-	var->step_y = var->delta_y < 0 ? -1 : 1;
-	if (var->delta_x < 0)
-		var->next_dist_x = (var->ray_x - var->map_x * BLOCK_SIZE)
-			/ fabs(var->delta_x);
+	var->rx = cub->player->x;
+	var->ry = cub->player->y;
+	var->mx = (int)floor(var->rx / BLOCK_SIZE);
+	var->my = (int)floor(var->ry / BLOCK_SIZE);
+	var->dx = -cos(angle);
+	var->dy = -sin(angle);
+	var->delta_dist_x = fabs(1.0 / var->dx);
+	var->delta_dist_y = fabs(1.0 / var->dy);
+	var->step_x = 1 - 2 * (var->dx < 0);
+	var->step_y = 1 - 2 * (var->dy < 0);
+	if (var->dx < 0)
+		var->next_x = (var->rx - var->mx * BLOCK_SIZE) / fabs(var->dx);
 	else
-		var->next_dist_x = ((var->map_x + 1) * BLOCK_SIZE - var->ray_x)
-			/ fabs(var->delta_x);
-	if (var->delta_y < 0)
-		var->next_dist_y = (var->ray_y - var->map_y * BLOCK_SIZE)
-			/ fabs(var->delta_y);
+		var->next_x = ((var->mx + 1) * BLOCK_SIZE - var->rx) / fabs(var->dx);
+	if (var->dy < 0)
+		var->next_y = (var->ry - var->my * BLOCK_SIZE) / fabs(var->dy);
 	else
-		var->next_dist_y = ((var->map_y + 1) * BLOCK_SIZE - var->ray_y)
-			/ fabs(var->delta_y);
+		var->next_y = ((var->my + 1) * BLOCK_SIZE - var->ry) / fabs(var->dy);
 	var->info = NULL;
 	var->hit = 0;
 }
@@ -55,20 +50,24 @@ t_ray_info	*create_ray_info(double angle)
 
 void	update_ray_hit_horizontal(t_ray_info_var *var)
 {
-	var->ray_x += var->next_dist_x * var->delta_x;
-	var->ray_y += var->next_dist_x * var->delta_y;
-	var->next_dist_y -= var->next_dist_x;
-	var->next_dist_x = var->delta_dist_x * BLOCK_SIZE;
-	var->map_x += var->step_x;
-	var->info->direction = var->step_x < 0 ? WEST : EAST;
+	var->rx += var->next_x * var->dx;
+	var->ry += var->next_x * var->dy;
+	var->next_y -= var->next_x;
+	var->next_x = var->delta_dist_x * BLOCK_SIZE;
+	var->mx += var->step_x;
+	var->info->direction = EAST;
+	if (var->step_x < 0)
+		var->info->direction = WEST;
 }
 
 void	update_ray_hit_vertical(t_ray_info_var *var)
 {
-	var->ray_x += var->next_dist_y * var->delta_x;
-	var->ray_y += var->next_dist_y * var->delta_y;
-	var->next_dist_x -= var->next_dist_y;
-	var->next_dist_y = var->delta_dist_y * BLOCK_SIZE;
-	var->map_y += var->step_y;
-	var->info->direction = var->step_y < 0 ? NORTH : SOUTH;
+	var->rx += var->next_y * var->dx;
+	var->ry += var->next_y * var->dy;
+	var->next_x -= var->next_y;
+	var->next_y = var->delta_dist_y * BLOCK_SIZE;
+	var->my += var->step_y;
+	var->info->direction = SOUTH;
+	if (var->step_y < 0)
+		var->info->direction = NORTH;
 }

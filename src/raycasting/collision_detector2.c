@@ -6,16 +6,16 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:16:42 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:31:12 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:16:34 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycast.h"
 
-void	check_hurt_up(t_will_hurt_var *, t_player *);
-void	check_hurt_down(t_will_hurt_var *, t_player *);
-void	check_hurt_left(t_will_hurt_var *, t_player *);
-void	check_hurt_right(t_will_hurt_var *, t_player *);
+void	check_hurt_up(t_will_hurt_var *var, t_player *player);
+void	check_hurt_down(t_will_hurt_var *var, t_player *player);
+void	check_hurt_left(t_will_hurt_var *var, t_player *player);
+void	check_hurt_right(t_will_hurt_var *var, t_player *player);
 
 void	init_will_hurt_var(t_will_hurt_var *var, t_player *player)
 {
@@ -25,7 +25,7 @@ void	init_will_hurt_var(t_will_hurt_var *var, t_player *player)
 	var->dy = player->delta_y * MOVE_STEP * 5;
 }
 
-int	player_will_hurt_wall(t_program *pro, char dir)
+int	player_will_hurt_wall(t_cub3d *pro, char dir)
 {
 	t_will_hurt_var	var;
 

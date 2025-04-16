@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:14:28 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:17:27 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:14:14 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	move_right(t_player *player)
 	player->y -= (int)roundf(player->delta_x * MOVE_STEP);
 	player->x += (int)roundf(player->delta_y * MOVE_STEP);
 }
+
 void	move_left(t_player *player)
 {
 	player->y += (int)roundf(player->delta_x * MOVE_STEP);

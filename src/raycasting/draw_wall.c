@@ -6,30 +6,32 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:10:24 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:33:50 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:13:36 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycast.h"
 
-void	draw_background(t_program *pro)
+void	draw_background(t_cub3d *cub)
 {
-	t_minirect roof, floor;
+	t_minirect	roof;
+	t_minirect	floor;
+
 	roof.x = 0;
 	roof.y = 0;
 	roof.width = W_WIDTH;
 	roof.height = W_HEIGHT;
 	roof.bg_color = ROOF;
-	draw_rectangle(pro, &roof);
+	draw_rectangle(cub, &roof);
 	floor.x = 0;
 	floor.y = W_HEIGHT / 2;
 	floor.width = W_WIDTH;
 	floor.height = W_HEIGHT - floor.y;
 	floor.bg_color = FLOOR;
-	draw_rectangle(pro, &floor);
+	draw_rectangle(cub, &floor);
 }
 
-static void	init_draw_wall_var(t_draw_wall_var *var, t_program *pro,
+static void	init_draw_wall_var(t_draw_wall_var *var, t_cub3d *pro,
 		t_ray_info *info)
 {
 	var->correct_distance = info->length * cosf(pro->player->angle
@@ -65,7 +67,7 @@ static void	compute_texture_x(t_draw_wall_var *var, t_ray_info *info)
 	}
 }
 
-void	draw_wall(t_program *pro, int ray, t_ray_info *info)
+void	draw_wall(t_cub3d *pro, int ray, t_ray_info *info)
 {
 	t_draw_wall_var	var;
 

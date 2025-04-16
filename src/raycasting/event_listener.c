@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:15:02 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:20:57 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:07:54 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_key_event(t_key_event *event)
 	event->move = 1;
 }
 
-int	need_refresh(t_program *pro)
+int	need_refresh(t_cub3d *pro)
 {
 	return (pro->key_events->w || pro->key_events->d || pro->key_events->s
 		|| pro->key_events->a || pro->key_events->arrow_left
@@ -33,9 +33,9 @@ int	need_refresh(t_program *pro)
 
 int	handle_keydown(int code, void *arg)
 {
-	t_program	*pro;
+	t_cub3d	*pro;
 
-	pro = (t_program *)arg;
+	pro = (t_cub3d *)arg;
 	if (code == XK_z)
 		pro->key_events->w = 1;
 	if (code == XK_d)
@@ -56,9 +56,9 @@ int	handle_keydown(int code, void *arg)
 
 int	handle_keyup(int code, void *arg)
 {
-	t_program	*pro;
+	t_cub3d	*pro;
 
-	pro = (t_program *)arg;
+	pro = (t_cub3d *)arg;
 	if (code == XK_z)
 		pro->key_events->w = 0;
 	if (code == XK_d)

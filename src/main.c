@@ -6,13 +6,13 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/15 23:29:10 by erijania         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:07:54 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycast.h"
 
-static void	init_player(t_program *pro)
+static void	init_player(t_cub3d *pro)
 {
 	int		player_offset;
 	int		i;
@@ -54,9 +54,9 @@ static void	init_player(t_program *pro)
 
 static int	gameloop(void *arg)
 {
-	t_program	*pro;
+	t_cub3d	*pro;
 
-	pro = (t_program *)arg;
+	pro = (t_cub3d *)arg;
 	if (!pro->key_events->move)
 		return (0);
 	if (pro->key_events->w && !player_will_hurt_wall(pro, MOVE_UP))
@@ -79,7 +79,7 @@ static int	gameloop(void *arg)
 	return (0);
 }
 
-static void	load_map(t_program *pro)
+static void	load_map(t_cub3d *pro)
 {
 	int		fd;
 	char	buff[MAP_ITEM_LENGTH];
@@ -114,7 +114,7 @@ static void	load_map(t_program *pro)
 int	main(void)
 {
 	t_player	player;
-	t_program	prog;
+	t_cub3d	prog;
 	t_key_event	keydown;
 
 	program_init(&prog);
