@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:15:02 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/16 11:07:54 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:16:29 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ int	handle_keydown(int code, void *arg)
 	t_cub3d	*pro;
 
 	pro = (t_cub3d *)arg;
-	if (code == XK_z)
+	if (code == XK_w)
 		pro->key_events->w = 1;
 	if (code == XK_d)
 		pro->key_events->d = 1;
 	if (code == XK_s)
 		pro->key_events->s = 1;
-	if (code == XK_q)
+	if (code == XK_a)
 		pro->key_events->a = 1;
 	if (code == XK_Left)
 		pro->key_events->arrow_left = 1;
@@ -59,13 +59,13 @@ int	handle_keyup(int code, void *arg)
 	t_cub3d	*pro;
 
 	pro = (t_cub3d *)arg;
-	if (code == XK_z)
+	if (code == XK_w)
 		pro->key_events->w = 0;
 	if (code == XK_d)
 		pro->key_events->d = 0;
 	if (code == XK_s)
 		pro->key_events->s = 0;
-	if (code == XK_q)
+	if (code == XK_a)
 		pro->key_events->a = 0;
 	if (code == XK_Left)
 		pro->key_events->arrow_left = 0;

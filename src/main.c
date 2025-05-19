@@ -6,130 +6,71 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/16 11:07:54 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:10:40 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "check_error.h"
+#include "tools.h"
 #include "raycast.h"
-
-static void	init_player(t_cub3d *pro)
-{
-	int		player_offset;
-	int		i;
-	int		j;
-	float	angle;
-
-	i = 0;
-	player_offset = (int)(BLOCK_SIZE / 2);
-	angle = 0;
-	while (i < MAP_LENGTH)
-	{
-		j = 0;
-		while (j < MAP_ITEM_LENGTH)
-		{
-			if (pro->map[i][j] && pro->map[i][j] != '1'
-				&& pro->map[i][j] != '0')
-			{
-				if (pro->map[i][j] == 'N')
-					angle = PI / 2.0;
-				else if (pro->map[i][j] == 'E')
-					angle = PI;
-				else if (pro->map[i][j] == 'S')
-					angle = 3.0 * PI / 2.0;
-				else if (pro->map[i][j] == 'W')
-					angle = 0;
-				pro->player->x = j * BLOCK_SIZE + player_offset;
-				pro->player->y = i * BLOCK_SIZE + player_offset;
-				pro->player->angle = angle;
-				pro->player->delta_x = cosf(angle);
-				pro->player->delta_y = sinf(angle);
-				pro->player->fov = PI / 3.0;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-}
+#include "cub3d.h"
 
 static int	gameloop(void *arg)
 {
-	t_cub3d	*pro;
+	t_cub3d	*cub;
 
-	pro = (t_cub3d *)arg;
-	if (!pro->key_events->move)
+	cub = (t_cub3d *)arg;
+	if (!cub->key_events->move)
 		return (0);
-	if (pro->key_events->w && !player_will_hurt_wall(pro, MOVE_UP))
-		move_forward(pro->player);
-	if (pro->key_events->s && !player_will_hurt_wall(pro, MOVE_DOWN))
-		move_backward(pro->player);
-	if (pro->key_events->a && !player_will_hurt_wall(pro, MOVE_LEFT))
-		move_left(pro->player);
-	if (pro->key_events->d && !player_will_hurt_wall(pro, MOVE_RIGHT))
-		move_right(pro->player);
-	if (pro->key_events->arrow_left) // Flèche gauche (LEFT_ARROW)
-		turn_left(pro->player);
-	if (pro->key_events->arrow_right) // Flèche droite (RIGHT_ARROW)
-		turn_right(pro->player);
-	pro->player->delta_x = cosf(pro->player->angle);
-	pro->player->delta_y = sinf(pro->player->angle);
-	draw_background(pro);
-	cast_rays(pro);
-	mlx_put_image_to_window(pro->mlx, pro->win, pro->pix.img, 0, 0);
+	if (cub->key_events->w && !player_will_hurt_wall(cub, MOVE_UP))
+		move_forward(cub->player);
+	if (cub->key_events->s && !player_will_hurt_wall(cub, MOVE_DOWN))
+		move_backward(cub->player);
+	if (cub->key_events->a && !player_will_hurt_wall(cub, MOVE_LEFT))
+		move_left(cub->player);
+	if (cub->key_events->d && !player_will_hurt_wall(cub, MOVE_RIGHT))
+		move_right(cub->player);
+	if (cub->key_events->arrow_left) // Flèche gauche (LEFT_ARROW)
+		turn_left(cub->player);
+	if (cub->key_events->arrow_right) // Flèche droite (RIGHT_ARROW)
+		turn_right(cub->player);
+	cub->player->delta_x = cosf(cub->player->angle);
+	cub->player->delta_y = sinf(cub->player->angle);
+	draw_background(cub);
+	cast_rays(cub);
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->pix.img, 0, 0);
 	return (0);
 }
 
-static void	load_map(t_cub3d *pro)
+int	run(t_data *data)
 {
-	int		fd;
-	char	buff[MAP_ITEM_LENGTH];
-
-	fd = open("map.cub", O_RDONLY);
-	pro->map = malloc(sizeof(char *) * (MAP_LENGTH + 1));
-	if (!pro->map)
-		exit(EXIT_FAILURE);
-	int r, i, j;
-	i = 0;
-	while (i <= MAP_LENGTH)
-		pro->map[i++] = NULL;
-	i = 0;
-	while ((r = read(fd, buff, MAP_ITEM_LENGTH - 1)) > 0)
-	{
-		pro->map[i] = malloc(sizeof(char) * MAP_ITEM_LENGTH);
-		if (!pro->map[i])
-			exit(EXIT_FAILURE);
-		j = 0;
-		while (j < r && buff[j] && buff[j] != '\n')
-		{
-			pro->map[i][j] = buff[j];
-			j++;
-		}
-		pro->map[i][j] = 0;
-		i++;
-	}
-	pro->map[i] = NULL;
-	close(fd);
-}
-
-int	main(void)
-{
+	t_cub3d		cub;
 	t_player	player;
-	t_cub3d	prog;
 	t_key_event	keydown;
 
-	program_init(&prog);
-	prog.player = &player;
-	prog.key_events = &keydown;
-	load_map(&prog);
-	init_player(&prog);
+	cub.player = &player;
+	cub.key_events = &keydown;
+	program_init(&cub, data);
+	init_player(&cub);
 	init_key_event(&keydown);
-	gameloop(&prog);
+	gameloop(&cub);
 	keydown.move = 0;
-	mlx_hook(prog.win, 3, 1L << 1, handle_keyup, &prog);
-	mlx_hook(prog.win, 2, 1L << 0, handle_keydown, &prog);
-	mlx_hook(prog.win, 17, 0L, program_clear, &prog);
-	mlx_loop_hook(prog.mlx, gameloop, &prog);
-	mlx_loop(prog.mlx);
-	program_clear(&prog);
+	mlx_hook(cub.win, 3, 1L << 1, handle_keyup, &cub);
+	mlx_hook(cub.win, 2, 1L << 0, handle_keydown, &cub);
+	mlx_hook(cub.win, 17, 0L, program_clear, &cub);
+	mlx_loop_hook(cub.mlx, gameloop, &cub);
+	mlx_loop(cub.mlx);
+	program_clear(&cub);
+	return (0);
+}
+
+int	main(int ac, char **av)
+{
+	if (ac != 2 || !valid_name(av[1]))
+		arg_error(ac, av);
+	if (valid_map(av[1]))
+		ft_putstr_fd("map is valid🤩\n", 1);
+	else
+		ft_putstr_fd("invalid map🤕\n", 1);
 	return (0);
 }
