@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:10:24 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 21:45:19 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 22:23:45 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	draw_background(t_cub3d *cub)
 	roof.y = 0;
 	roof.width = W_WIDTH;
 	roof.height = W_HEIGHT;
-	roof.bg_color = ROOF;
+	roof.bg_color = cub->c;
 	draw_rectangle(cub, &roof);
 	floor.x = 0;
 	floor.y = W_HEIGHT / 2;
 	floor.width = W_WIDTH;
 	floor.height = W_HEIGHT - floor.y;
-	floor.bg_color = FLOOR;
+	floor.bg_color = cub->f;
 	draw_rectangle(cub, &floor);
 }
 

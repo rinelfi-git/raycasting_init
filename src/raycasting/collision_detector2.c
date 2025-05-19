@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:16:42 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 21:00:26 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 22:22:46 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	init_will_hurt_var(t_will_hurt_var *var, t_player *player)
 {
 	var->map_x = -1;
 	var->map_y = -1;
-	var->dx = player->delta_x * MOVE_STEP * 5;
-	var->dy = player->delta_y * MOVE_STEP * 5;
+	var->dx = player->delta_x * MOVE_STEP;
+	var->dy = player->delta_y * MOVE_STEP;
 }
 
 int	player_will_hurt_wall(t_cub3d *pro, char dir)
