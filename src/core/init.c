@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 21:43:16 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 22:18:38 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	init_check(t_cub3d *cub);
 t_texture	*new_texture(void *mlx, char *path)
 {
 	t_texture	*out;
+
+	printf("LOADING TEXTURE %s\n", path);
 
 	out = malloc(sizeof(t_texture));
 	if (!out)
@@ -47,10 +49,10 @@ void	program_init(t_cub3d *cub, t_data *data)
 	pix->img = mlx_new_image(mlx, W_WIDTH, W_HEIGHT);
 	pix->addr = mlx_get_data_addr(pix->img, &pix->bits_per_pixel,
 			&pix->line_length, &pix->endian);
-	cub->textures[NORTH] = new_texture(mlx, data->north);
-	cub->textures[EAST] = new_texture(mlx, data->east);
-	cub->textures[SOUTH] = new_texture(mlx, data->south);
-	cub->textures[WEST] = new_texture(mlx, data->west);
+	cub->textures[SOUTH] = new_texture(mlx, data->north);
+	cub->textures[WEST] = new_texture(mlx, data->east);
+	cub->textures[NORTH] = new_texture(mlx, data->south);
+	cub->textures[EAST] = new_texture(mlx, data->west);
 	cub->c = data->c;
 	cub->f = data->f;
 	cub->map = map_dup(data->map);
