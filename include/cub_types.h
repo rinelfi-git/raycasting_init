@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:39:30 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 20:53:59 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:46:52 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ struct							s_ray_info_var
 	int							step_x;
 	int							step_y;
 	int							hit;
+	t_cub3d						*cub;
 };
 struct							s_will_hurt_var
 {

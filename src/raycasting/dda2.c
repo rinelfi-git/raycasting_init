@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:00:10 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/16 11:22:30 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:47:53 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	handle_ray_hit_wall(t_ray_info_var *var, t_cub3d *pro)
 
 static void	handle_ray_overflow(t_ray_info_var *var)
 {
-	var->info->length = MAP_LENGTH * MAP_ITEM_LENGTH * BLOCK_SIZE;
+	var->info->length = var->cub->map_height * var->cub->map_width
+		* BLOCK_SIZE;
 	var->hit = 1;
 }
 
@@ -44,8 +45,8 @@ t_ray_info	*get_ray_info(t_cub3d *cub, float ray_angle)
 			update_ray_hit_horizontal(&var);
 		else
 			update_ray_hit_vertical(&var);
-		if (var.my < 0 || var.my > MAP_LENGTH || var.mx < 0
-			|| var.mx >= MAP_ITEM_LENGTH)
+		if (var.my < 0 || var.my > cub->map_height || var.mx < 0
+			|| var.mx >= cub->map_width)
 			handle_ray_overflow(&var);
 		if (cub->map[var.my][var.mx] == '1')
 			handle_ray_hit_wall(&var, cub);

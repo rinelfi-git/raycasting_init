@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:00:10 by erijania          #+#    #+#             */
-/*   Updated: 2025/04/16 11:28:01 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:47:23 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_local(t_ray_info_var *var, t_cub3d *cub, double angle)
 		var->next_y = ((var->my + 1) * BLOCK_SIZE - var->ry) / fabs(var->dy);
 	var->info = NULL;
 	var->hit = 0;
+	var->cub = cub;
 }
 
 t_ray_info	*create_ray_info(double angle)

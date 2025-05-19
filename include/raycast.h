@@ -6,18 +6,18 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 20:55:15 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:55:00 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCAST_H
 # define RAYCAST_H
-# define W_HEIGHT 768
-# define W_WIDTH 1024
-# define BLOCK_SIZE 256
+# define W_HEIGHT 480
+# define W_WIDTH 640
+# define BLOCK_SIZE 800
 # define TEXTURE_SIZE 64
 # define MOVE_STEP 3
-# define TURN_STEP 0.015
+# define TURN_STEP 0.005
 # define FLOOR 0x926829
 # define ROOF 0x20a7db
 # define PI 3.141592653589793
@@ -25,8 +25,6 @@
 # define MOVE_DOWN 's'
 # define MOVE_LEFT 'a'
 # define MOVE_RIGHT 'd'
-# define MAP_LENGTH 21
-# define MAP_ITEM_LENGTH 23
 # define TEXTURE_NORTH "./textures/wolfenstein/blue_stone.xpm"
 # define TEXTURE_SOUTH "./textures/wolfenstein/grey_stone.xpm"
 # define TEXTURE_EAST "./textures/wolfenstein/mossy.xpm"

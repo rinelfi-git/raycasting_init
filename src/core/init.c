@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 21:38:58 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:43:16 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_texture	*new_texture(void *mlx, char *path)
 	if (!out)
 		exit(EXIT_FAILURE);
 	out->img = mlx_xpm_file_to_image(mlx, path, &(out->width), &(out->height));
-	if (!out->img || out->width != TEXTURE_SIZE || out->height != TEXTURE_SIZE)
+	if (!out->img)
 	{
 		mlx_destroy_image(mlx, out->img);
 		free(out);
