@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 21:10:40 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:55:07 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	run(t_data *data)
 int	main(int ac, char **av)
 {
 	if (ac != 2 || !valid_name(av[1]))
-		arg_error(ac, av);
+		arg_error();
 	if (valid_map(av[1]))
 		ft_putstr_fd("map is valid🤩\n", 1);
 	else

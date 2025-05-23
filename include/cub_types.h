@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:39:30 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 21:46:52 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:01:42 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ struct							s_texture
 	void						*img;
 	int							width;
 	int							height;
+	char						*path;
 };
 
 struct							s_cub3d

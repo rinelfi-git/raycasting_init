@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:00:35 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 22:08:14 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:04:17 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	texture_destroy(void *mlx, t_texture *texture)
 {
 	if (texture)
 	{
-		mlx_destroy_image(mlx, texture->img);
+		free(texture->path);
+		if (texture->img)
+			mlx_destroy_image(mlx, texture->img);
 		free(texture);
 	}
 }

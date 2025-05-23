@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:03:57 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/19 20:41:29 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:52:01 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		tk_texture(char *texture, char **buffer);
 int		checkchar(char *str, char c);
 int		tk_map(char *line, int fd, char ***map);
 
-void	arg_error(int ac, char **av);
+void	arg_error(void);
 void	check_lock(char ***map, int size, int len);
 int		init_check(t_cub3d *cub);
 

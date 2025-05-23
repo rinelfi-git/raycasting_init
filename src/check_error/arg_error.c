@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:58:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/13 21:45:36 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:52:02 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,10 @@ int	ft_memcmp(char *s1, char *s2)
 	return (0);
 }
 
-void	arg_error(int ac, char **av)
+void	arg_error(void)
 {
-	if (ac < 2)
-		ft_putstr_fd("too few argument🙅", 2);
-	else if (ac > 2)
-		ft_putstr_fd("too many argument🙅", 2);
-	else if (ac == 2)
-	{
-		ft_putstr_fd(av[1], 2);
-		ft_putstr_fd(" is not an allowed file🤕\n", 2);
-		ft_putstr_fd("   Enter an *.cub file please🙃\n", 2);
-	}
+	ft_putstr_fd("Error\nCommand line should be: "
+		"cub3D path/to/the/config.cub\n", 2);
 	exit(EXIT_FAILURE);
 }
 

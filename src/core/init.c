@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 22:18:38 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:02:05 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,11 @@ t_texture	*new_texture(void *mlx, char *path)
 {
 	t_texture	*out;
 
-	printf("LOADING TEXTURE %s\n", path);
-
 	out = malloc(sizeof(t_texture));
 	if (!out)
 		exit(EXIT_FAILURE);
+	out->path = ft_strdup(path);
 	out->img = mlx_xpm_file_to_image(mlx, path, &(out->width), &(out->height));
-	if (!out->img)
-	{
-		mlx_destroy_image(mlx, out->img);
-		free(out);
-		return (NULL);
-	}
 	return (out);
 }
 

@@ -1,4 +1,4 @@
-NAME = raycasting
+NAME = cub3D
 CC = gcc
 CARG = -Werror -Wextra -Wall
 INCs = -I./include -I./lib/mlx
@@ -32,10 +32,10 @@ OBJs = $(SRCs:.c=.o)
 LIBs = -L./lib/mlx -lmlx -L/usr/lib -lXext -lX11 -lm -lz
 LIB_MLX = ./lib/mlx/libmlx.a
 
-all: $(NAME)
-
 $(NAME): $(OBJs) $(LIB_MLX)
 	$(CC) $(OBJs) $(LIBs) -o $(NAME)
+
+all: $(NAME)
 
 clean:
 	rm -rf $(OBJs)
