@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:29:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/19 21:38:47 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:59:52 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ char	*ft_strcpy(char *s, int l_src);
 
 t_map	*new_line(char *line);
 char	**map_dup(char **map);
+void	config_file_error(int code);
 #endif

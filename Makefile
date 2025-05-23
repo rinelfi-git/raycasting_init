@@ -27,6 +27,7 @@ SRCs =  ./src/check_error/get_next_line/get_next_line_utils.c \
 		./src/tools/size.c \
 		./src/tools/utils1.c \
 		./src/tools/utils2.c \
+		./src/tools/utils3.c \
 		./src/main.c
 OBJs = $(SRCs:.c=.o)
 LIBs = -L./lib/mlx -lmlx -L/usr/lib -lXext -lX11 -lm -lz
