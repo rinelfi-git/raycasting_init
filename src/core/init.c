@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/23 20:02:05 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:12:37 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	program_init(t_cub3d *cub, t_data *data)
 	mlx = mlx_init();
 	pix = &(cub->pix);
 	cub->mlx = mlx;
-	cub->win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "Ray casting");
+	cub->win = NULL;
 	pix->img = mlx_new_image(mlx, W_WIDTH, W_HEIGHT);
 	pix->addr = mlx_get_data_addr(pix->img, &pix->bits_per_pixel,
 			&pix->line_length, &pix->endian);
@@ -54,6 +54,7 @@ void	program_init(t_cub3d *cub, t_data *data)
 	cub->tmp_data = data;
 	if (!init_check(cub))
 		program_clear(cub);
+	cub->win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "Ray casting");
 }
 
 int	program_clear(t_cub3d *prog)
@@ -72,7 +73,8 @@ int	program_clear(t_cub3d *prog)
 		texture_destroy(prog->mlx, prog->textures[i++]);
 	if (prog->win)
 		mlx_destroy_window(prog->mlx, prog->win);
-	mlx_destroy_image(prog->mlx, prog->pix.img);
+	if (prog->pix.img)
+		mlx_destroy_image(prog->mlx, prog->pix.img);
 	mlx_destroy_display(prog->mlx);
 	free(prog->mlx);
 	if (prog->tmp_data)
