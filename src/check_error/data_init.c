@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:39 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 21:19:37 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 21:28:02 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ int	tk_texture(char *texture, char **buffer)
 	int		j;
 
 	if (*texture != ' ')
+	{
+		printf("TEXTURE VALUE ID [%s]\n", texture);
 		return (1);
+	}
 	i = skipe(texture, 0);
 	j = 0;
 	while (checkchar("\t \n", texture[i + j]))

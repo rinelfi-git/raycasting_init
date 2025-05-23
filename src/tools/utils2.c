@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:52:28 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/19 20:53:59 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 21:28:25 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	info_ok(t_data *data)
 
 int	map_error(char *line, t_map **lst)
 {
+	printf("FREE MAP DATA\n");
 	free_list(*lst);
 	free(line);
 	return (1);

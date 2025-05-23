@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:07:52 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 21:17:50 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 21:27:38 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_line(char *line, int fd, t_data *data)
 	else if (info_ok(data) && !checkchar("01", *line))
 		return (tk_map(line, fd, &data->map));
 	else
-		j = 1;
+		j = 0;
 	free (line);
 	return (j);
 }
