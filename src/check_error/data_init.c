@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:39 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 20:22:15 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:26:24 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int	tk_color(char *line, int *color)
 	char	**res;
 
 	if (count_words(line, ',') != 3)
+	{
+		ft_putstr_fd("Error\nColor format: ID R,G,B\n", 2);
 		return (1);
+	}
 	res = ft_split(line, ',');
 	red = ft_atoi(res[0]);
 	green = ft_atoi(res[1]);
@@ -66,9 +69,10 @@ int	tk_color(char *line, int *color)
 	if (red < 0 || green < 0 || blue < 0)
 	{
 		free_tab(res, 3);
-		ft_putstr_fd("Error\nColor value range [0-255]\n", 2);
+		ft_putstr_fd("Error\nColor value range: [0-255]\n", 2);
 		return (1);
 	}
+	printf("PICK COLOR [%s] (%d, %d, %d)\n", line, red, green, blue);
 	*color = red << 16 | green << 8 | blue;
 	free_tab(res, 3);
 	return (0);

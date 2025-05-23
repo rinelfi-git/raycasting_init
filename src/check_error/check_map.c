@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:07:52 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/19 20:53:59 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:29:05 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	check_line(char *line, int fd, t_data *data)
 	else if (ft_strncmp("EA", line + i, 2) && !data->east)
 		j = tk_texture(line + i + 2, &data->east);
 	else if (ft_strncmp("F", line + i, 1) && data->f < 0)
-		j = tk_color(line + i, &data->f);
+		j = tk_color(line + i + 1, &data->f);
 	else if (ft_strncmp("C", line + i, 1) && data->c < 0)
-		j = tk_color(line + i, &data->c);
+		j = tk_color(line + i + 1, &data->c);
 	else if (ft_strncmp("11", line + i, 2) && info_ok(data))
 		return (tk_map(line, fd, &data->map));
 	else
