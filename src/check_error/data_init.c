@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:39 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/19 20:53:59 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:22:15 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ int	tk_color(char *line, int *color)
 	green = ft_atoi(res[1]);
 	blue = ft_atoi(res[2]);
 	if (red < 0 || green < 0 || blue < 0)
+	{
+		free_tab(res, 3);
+		ft_putstr_fd("Error\nColor value range [0-255]\n", 2);
 		return (1);
+	}
 	*color = red << 16 | green << 8 | blue;
 	free_tab(res, 3);
 	return (0);
