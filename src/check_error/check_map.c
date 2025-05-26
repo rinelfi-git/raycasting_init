@@ -61,7 +61,7 @@ int	check_line(char *line, int fd, t_data *data)
 		j = tk_color(line + i + 1, &data->f);
 	else if (ft_strncmp("C", line + i, 1) && data->c < 0)
 		j = tk_color(line + i + 1, &data->c);
-	else if (info_ok(data) && !checkchar("01", *line))
+	else if (info_ok(data) && !checkchar("01", line[i]))
 		return (tk_map(line, fd, &data->map));
 	else
 		j = 0;

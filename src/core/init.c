@@ -88,7 +88,7 @@ static	int	player_pos(t_cub3d	*prog)
 	int	i;
 	int	j;
 	int	c;
-	int		player_offset;
+	int	player_offset;
 
 	i = 0;
 	player_offset = (int)(BLOCK_SIZE / 2);
@@ -111,7 +111,7 @@ static	int	player_pos(t_cub3d	*prog)
 	return (0);
 }
 
-void init_player(t_cub3d *cub)
+void	init_player(t_cub3d *cub)
 {
 	int		pos;
 	float	angle;

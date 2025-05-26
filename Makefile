@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = gcc
-CARG = -Werror -Wextra -Wall
+CARG = -Werror -Wextra -Wall -g
 INCs = -I./include -I./lib/mlx
 SRCs =  ./src/check_error/get_next_line/get_next_line_utils.c \
 		./src/check_error/get_next_line/get_next_line.c \

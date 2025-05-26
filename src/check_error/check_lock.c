@@ -19,7 +19,7 @@ static void	open_wall(char ***map, int size)
 	*map = NULL;
 }
 
-void	check_player(char ***map, int size, int len)
+int	check_player(char ***map, int size, int len)
 {
 	int	i;
 	int	j;
@@ -29,6 +29,8 @@ void	check_player(char ***map, int size, int len)
 	p = 0;
 	while (i < size)
 	{
+		ft_putstr_fd((*map)[i], 1);
+		ft_putstr_fd("\n", 1);
 		j = 0;
 		while (j < len)
 		{
@@ -39,10 +41,11 @@ void	check_player(char ***map, int size, int len)
 		i++;
 	}
 	if (p != 1)
-		open_wall(map, size);
+		return (1);
+	return (0);
 }
 
-void	check_column(char ***map, int size, int len)
+int	check_column(char ***map, int size, int len)
 {
 	int	i;
 	int	j;
@@ -56,18 +59,19 @@ void	check_column(char ***map, int size, int len)
 			while (i < size && (*map)[i][j] == ' ')
 				i++;
 			if ((i < size && (*map)[i][j] != '1'))
-				return (open_wall(map, size));
+				return (1);
 			while (i < size && !checkchar("10NEWS", (*map)[i][j]))
 				i++;
 			if (i <= size && checkchar(" 1", (*map)[i - 1][j]))
-				return (open_wall(map, size));
+				return (1);
 			i++;
 		}
 		j++;
 	}
+	return (0);
 }
 
-void	check_arrow(char ***map, int size, int len)
+int	check_arrow(char ***map, int size, int len)
 {
 	int	i;
 	int	j;
@@ -81,19 +85,21 @@ void	check_arrow(char ***map, int size, int len)
 			while (j < len && (*map)[i][j] == ' ')
 				j++;
 			if ((*map)[i][j] && (*map)[i][j] != '1')
-				return (open_wall(map, size));
+				return (1);
 			while (!checkchar("10NEWS", (*map)[i][j]))
 				j++;
 			if (j <= len && checkchar(" 1", (*map)[i][j - 1]))
-				return (open_wall(map, size));
+				return (1);
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	check_lock(char ***map, int size, int len)
 {
-	check_arrow(map, size, len);
-	check_column(map, size, len);
-	check_player(map, size, len);
+	if (check_arrow(map, size, len)
+		|| check_column(map, size, len)
+		|| check_player(map, size, len))
+		open_wall(map, size);
 }

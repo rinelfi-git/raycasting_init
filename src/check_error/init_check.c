@@ -22,7 +22,8 @@ int	init_check(t_cub3d *cub)
 	i = 0;
 	while (i < 4)
 	{
-		if (!cub->textures[i]->img) {
+		if (!cub->textures[i]->img)
+		{
 			ft_putstr_fd("Error\n", 2);
 			ft_putstr_fd("Cannot load texture: ", 2);
 			ft_putstr_fd(cub->textures[i]->path, 2);
