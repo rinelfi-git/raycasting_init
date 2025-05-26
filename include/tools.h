@@ -15,6 +15,7 @@
 
 # include "raycast.h"
 # include "cub_types.h"
+# include "check_error.h"
 
 typedef struct s_map
 {

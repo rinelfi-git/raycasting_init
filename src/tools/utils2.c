@@ -38,10 +38,9 @@ int	info_ok(t_data *data)
 
 int	map_error(char *line, t_map **lst)
 {
-	printf("FREE MAP DATA\n");
 	free_list(*lst);
 	free(line);
-	return (1);
+	return (3);
 }
 
 char	*ft_strcpy(char *s, int l_src)

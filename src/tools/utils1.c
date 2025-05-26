@@ -64,7 +64,7 @@ int	ft_atoi(char *str)
 
 	i = 0;
 	nb = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while (!checkchar(" \t", str[i]))
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
@@ -77,7 +77,7 @@ int	ft_atoi(char *str)
 		nb = nb * 10 + str[i] - '0';
 		i++;
 	}
-	if (nb > 255)
+	if (nb > 255 || (str[i] && str[i] != '\n'))
 		return (-1);
 	return (nb);
 }

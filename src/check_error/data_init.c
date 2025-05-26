@@ -57,7 +57,7 @@ int	tk_color(char *line, int *color)
 	int		blue;
 	char	**res;
 
-	if (*line != ' ' || count_words(line, ',') != 3)
+	if (checkchar(" \t", *line) || count_words(line, ',') != 3)
 		return (2);
 	res = ft_split(line, ',');
 	red = ft_atoi(res[0]);
@@ -78,11 +78,8 @@ int	tk_texture(char *texture, char **buffer)
 	int		i;
 	int		j;
 
-	if (*texture != ' ')
-	{
-		printf("TEXTURE VALUE ID [%s]\n", texture);
+	if (checkchar("\t ", *texture))
 		return (1);
-	}
 	i = skipe(texture, 0);
 	j = 0;
 	while (checkchar("\t \n", texture[i + j]))
@@ -121,5 +118,7 @@ int	tk_map(char *line, int fd, char ***map)
 		line = get_next_line(fd);
 	}
 	*map = lst_to_tab(lst);
-	return (!(*map));
+	if (*map)
+		return (0);
+	return (3);
 }

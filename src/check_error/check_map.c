@@ -64,7 +64,7 @@ int	check_line(char *line, int fd, t_data *data)
 	else if (info_ok(data) && !checkchar("01", line[i]))
 		return (tk_map(line, fd, &data->map));
 	else
-		j = 0;
+		j = 5;
 	free (line);
 	return (j);
 }
@@ -85,7 +85,6 @@ int	check_map(int fd, char *line)
 		code = check_line(line, fd, &data);
 		if (code)
 		{
-			printf("CODE IS %d\n", code);
 			config_file_error(code);
 			free_data(&data);
 			return (1);

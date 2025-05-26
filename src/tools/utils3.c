@@ -14,12 +14,13 @@
 
 void	config_file_error(int code)
 {
-	char	*msg[4];
+	char	*msg[5];
 
 	msg[0] = "Allowed texture config: ID path/to/image.xpm\n";
 	msg[1] = "Allowed color config: ID [0-255],[0-255],[0-255]\n";
 	msg[2] = "Map configuration error\n";
-	msg[3] = "Undefined\n";
+	msg[3] = "Player configuration error\n";
+	msg[4] = "Unknown ID\n";
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(msg[code - 1], 2);
 }
