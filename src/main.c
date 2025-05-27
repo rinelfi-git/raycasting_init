@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/23 19:55:07 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:08:10 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static int	gameloop(void *arg)
 		move_left(cub->player);
 	if (cub->key_events->d && !player_will_hurt_wall(cub, MOVE_RIGHT))
 		move_right(cub->player);
-	if (cub->key_events->arrow_left) // Flèche gauche (LEFT_ARROW)
+	if (cub->key_events->arrow_left)
 		turn_left(cub->player);
-	if (cub->key_events->arrow_right) // Flèche droite (RIGHT_ARROW)
+	if (cub->key_events->arrow_right)
 		turn_right(cub->player);
 	cub->player->delta_x = cosf(cub->player->angle);
 	cub->player->delta_y = sinf(cub->player->angle);
