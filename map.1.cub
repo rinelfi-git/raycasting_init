@@ -7,10 +7,10 @@ WE ./textures/wolfenstein/mossy.xpm
 
 EA ./textures/wolfenstein/color_stone.xpm
 
-F 32 , 255,219 
+F 32,255,219
 C 146,104,41
 
  111
 10S01
  101
-  0
+  1

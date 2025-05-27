@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:29:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 20:59:52 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:25:08 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		skipe(char *str, int i);
 int		ft_tabsize(char **src);
 int		ft_isdigit(char c);
 int		count_len(char *s);
-int		ft_memcmp(char *s1, char *s2);
 int		ft_strncmp(char *s1, char *s2, int n);
 int		count_words(char *s, char c);
 

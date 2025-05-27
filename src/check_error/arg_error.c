@@ -6,59 +6,79 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:58:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 19:52:02 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:51:14 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "check_error.h"
 #include "tools.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
-int	ft_memcmp(char *s1, char *s2)
+void	arg_error(int code)
 {
-	int			i;
+	char	*dictionnary[3];
 
-	i = 0;
-	while (s1[i])
-	{
-		if (s1[i] != s2[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void	arg_error(void)
-{
-	ft_putstr_fd("Error\nCommand line should be: "
-		"cub3D path/to/the/config.cub\n", 2);
+	dictionnary[0] = "Command line should be: "
+		"cub3D path/to/the/config.cub\n";
+	dictionnary[1] = "Command line should be: "
+		"cub3D path/to/the/config.cub\n";
+	dictionnary[2] = "Command line should be: "
+		"cub3D path/to/the/config.cub\n";
+	dictionnary[3] = "Cannot open config file\n";
+	ft_putstr_fd("Error\n", 2);
+	if (code == 0)
+		ft_putstr_fd("Argument error\n", 2);
+	else
+		ft_putstr_fd(dictionnary[code - 1], 2);
 	exit(EXIT_FAILURE);
 }
 
-int	valid_name(char *name)
+static char	*get_extension(char *path)
 {
-	int	len;
-	int	i;
+	int		point;
+	int		flag;
+	int		i;
+	char	*ext;
 
-	i = 0;
-	len = ft_strlen(name) - 4;
-	if (len < 1)
-		return (0);
-	while (name[i] && name[i] != '.')
-		i++;
-	if (name[i] == '.')
+	point = -1;
+	flag = -1;
+	while (path[++point])
 	{
-		if (name[i - 1] == '/')
-		{
-			while (name[i++] != '.')
-				if (name[i] == '\0')
-					return (0);
-		}
-		while ((name[i] && name[i] != '.') && i <= len)
-			i++;
-		if (ft_memcmp(name + i, ".cub") != 0)
-			return (0);
+		if (path[point] == '.')
+			flag = point;
 	}
-	if (ft_memcmp(name + len, ".cub") != 0)
+	if (flag == -1)
 		return (0);
-	return (1);
+	ext = ft_strdup(path + flag + 1);
+	i = 0;
+	while (path[++flag])
+	{
+		if (path[flag] >= 'A' && path[flag] <= 'Z')
+			ext[i] = 'a' + (path[flag] - 'A');
+		i++;
+	}
+	return (ext);
+}
+
+int	invalid_config_file(char *name)
+{
+	char	*ext;
+	int		fd;
+
+	ext = get_extension(name);
+	if (ext == 0)
+		return (1);
+	if (ft_strncmp(ext, "cub", 4) != 0)
+	{
+		free(ext);
+		return (2);
+	}
+	free(ext);
+	fd = open(name, O_RDONLY);
+	if (fd < 0)
+		return (3);
+	close(fd);
+	return (0);
 }

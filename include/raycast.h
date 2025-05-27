@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 22:22:23 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:59:54 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,13 @@
 # define W_WIDTH 640
 # define BLOCK_SIZE 800
 # define TEXTURE_SIZE 64
-# define MOVE_STEP 5
+# define MOVE_STEP 3
 # define TURN_STEP 0.005
 # define PI 3.141592653589793
 # define MOVE_UP 'w'
 # define MOVE_DOWN 's'
 # define MOVE_LEFT 'a'
 # define MOVE_RIGHT 'd'
-# define TEXTURE_NORTH "./textures/wolfenstein/blue_stone.xpm"
-# define TEXTURE_SOUTH "./textures/wolfenstein/grey_stone.xpm"
-# define TEXTURE_EAST "./textures/wolfenstein/mossy.xpm"
-# define TEXTURE_WEST "./textures/wolfenstein/blue_stone.xpm"
 # include "mlx.h"
 # include "cub_types.h"
 # include <stdio.h>
