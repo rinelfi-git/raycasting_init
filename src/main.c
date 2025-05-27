@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/27 20:06:57 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:35:38 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int	run(t_data *data)
 
 int	main(int ac, char **av)
 {
-	if (ac != 2 || invalid_config_file(av[1]))
+	if (ac != 2)
+		arg_error(0);
+	if (invalid_config_file(av[1]))
 		arg_error(invalid_config_file(av[1]));
 	if (valid_map(av[1]))
 		ft_putstr_fd("map is valid🤩\n", 1);

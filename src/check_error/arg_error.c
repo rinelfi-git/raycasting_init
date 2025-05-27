@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:58:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/27 20:14:37 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:36:14 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,7 @@ void	arg_error(int code)
 	dictionnary[1] = "Config file should be config.cub\n";
 	dictionnary[2] = "Config file should be config.cub\n";
 	dictionnary[3] = "Cannot open config file\n";
-	ft_putstr_fd("Error\n", 2);
-	if (code == 0)
-		ft_putstr_fd("Argument error\n", 2);
-	else
-		ft_putstr_fd(dictionnary[code], 2);
+	ft_putstr_fd(dictionnary[code], 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -42,6 +38,8 @@ static char	*get_extension(char *path)
 
 	point = -1;
 	flag = -1;
+	if (!path)
+		return 0;
 	while (path[++point])
 	{
 		if (path[point] == '.')
