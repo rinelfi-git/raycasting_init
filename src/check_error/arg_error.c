@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:58:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/27 19:51:14 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:14:37 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ void	arg_error(int code)
 
 	dictionnary[0] = "Command line should be: "
 		"cub3D path/to/the/config.cub\n";
-	dictionnary[1] = "Command line should be: "
-		"cub3D path/to/the/config.cub\n";
-	dictionnary[2] = "Command line should be: "
-		"cub3D path/to/the/config.cub\n";
+	dictionnary[1] = "Config file should be config.cub\n";
+	dictionnary[2] = "Config file should be config.cub\n";
 	dictionnary[3] = "Cannot open config file\n";
 	ft_putstr_fd("Error\n", 2);
 	if (code == 0)
 		ft_putstr_fd("Argument error\n", 2);
 	else
-		ft_putstr_fd(dictionnary[code - 1], 2);
+		ft_putstr_fd(dictionnary[code], 2);
 	exit(EXIT_FAILURE);
 }
 
@@ -68,7 +66,7 @@ int	invalid_config_file(char *name)
 	int		fd;
 
 	ext = get_extension(name);
-	if (ext == 0)
+	if (!ext)
 		return (1);
 	if (ft_strncmp(ext, "cub", 4) != 0)
 	{

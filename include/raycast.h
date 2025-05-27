@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/27 20:08:26 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:30:30 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RAYCAST_H
 # define W_HEIGHT 480
 # define W_WIDTH 640
-# define BLOCK_SIZE 800
+# define BLOCK_SIZE 1024
 # define TEXTURE_SIZE 64
 # define MOVE_STEP 5
 # define TURN_STEP 0.005
