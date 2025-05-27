@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:16:42 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 22:22:46 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:05:58 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	player_will_hurt_wall(t_cub3d *pro, char dir)
 	else if (dir == MOVE_LEFT)
 		check_hurt_left(&var, pro->player);
 	else if (dir == MOVE_RIGHT)
-		check_hurt_left(&var, pro->player);
+		check_hurt_right(&var, pro->player);
 	if (var.map_x >= 0 && var.map_y >= 0)
 		return (pro->map[var.map_y / BLOCK_SIZE][var.map_x
 			/ BLOCK_SIZE] == '1');
