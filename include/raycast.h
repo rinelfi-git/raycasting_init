@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/27 20:30:30 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 14:44:33 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define MOVE_RIGHT 'd'
 # include "mlx.h"
 # include "cub_types.h"
-# include <stdio.h>
 # include <fcntl.h>
 # include <float.h>
 # include <math.h>
