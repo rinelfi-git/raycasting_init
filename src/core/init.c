@@ -18,7 +18,6 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-
 int	init_check(t_cub3d *cub);
 
 t_texture	*new_texture(void *mlx, char *path)

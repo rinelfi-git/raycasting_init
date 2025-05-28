@@ -1,7 +1,7 @@
 NAME = cub3D
 CC = gcc
 CARG = -Werror -Wextra -Wall -g
-INCs = -I./include -I./lib/mlx
+INCs = -I./include -I./minilibx-linux
 SRCs =  ./src/check_error/get_next_line/get_next_line_utils.c \
 		./src/check_error/get_next_line/get_next_line.c \
 		./src/check_error/arg_error.c \
@@ -30,8 +30,8 @@ SRCs =  ./src/check_error/get_next_line/get_next_line_utils.c \
 		./src/tools/utils3.c \
 		./src/main.c
 OBJs = $(SRCs:.c=.o)
-LIBs = -L./lib/mlx -lmlx -L/usr/lib -lXext -lX11 -lm -lz
-LIB_MLX = ./lib/mlx/libmlx.a
+LIBs = -L./minilibx-linux -lmlx -L/usr/lib -lXext -lX11 -lm -lz
+LIB_MLX = ./minilibx-linux/libmlx.a
 
 $(NAME): $(OBJs) $(LIB_MLX)
 	$(CC) $(OBJs) $(LIBs) -o $(NAME)
@@ -40,11 +40,11 @@ all: $(NAME)
 
 clean:
 	rm -rf $(OBJs)
-	rm -rf ./lib/mlx/*.o
+	rm -rf ./minilibx-linux/*.o
 
 fclean: clean
 	rm -rf $(NAME)
-	rm -rf ./lib/mlx/*.a
+	rm -rf ./minilibx-linux/*.a
 
 re: fclean all
 
@@ -52,4 +52,6 @@ re: fclean all
 	$(CC) $(CARG) -O3 $(INCs) -c $< -o $@
 
 $(LIB_MLX) :
-	make -C ./lib/mlx
+	make -C ./minilibx-linux/
+
+.PHONY : all clean fclean re
