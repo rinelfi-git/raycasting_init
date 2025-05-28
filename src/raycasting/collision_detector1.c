@@ -6,10 +6,11 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:16:42 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/28 15:02:27 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:35:54 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "raycast.h"
 
 void	check_hurt_up(t_will_hurt_var *var, t_player *player)

@@ -6,10 +6,11 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:10:24 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 22:23:45 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:36:45 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "raycast.h"
 
 void	draw_background(t_cub3d *cub)

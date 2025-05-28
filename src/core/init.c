@@ -6,15 +6,18 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/23 20:12:37 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:35:17 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+#include <stdlib.h>
 #include "raycast.h"
 #include "check_error.h"
 #include "tools.h"
 #include "cub3d.h"
-#include <stdlib.h>
+#include "mlx.h"
+
 
 int	init_check(t_cub3d *cub);
 

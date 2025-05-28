@@ -6,10 +6,11 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:14:28 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/27 20:04:10 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:36:52 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "raycast.h"
 
 void	move_forward(t_player *player)

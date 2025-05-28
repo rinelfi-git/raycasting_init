@@ -6,10 +6,12 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:00:10 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/19 21:47:23 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:36:16 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <math.h>
 #include "raycast.h"
 
 void	init_local(t_ray_info_var *var, t_cub3d *cub, double angle)

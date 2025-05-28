@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/28 14:44:33 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:32:45 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,10 @@
 # define MOVE_DOWN 's'
 # define MOVE_LEFT 'a'
 # define MOVE_RIGHT 'd'
-# include "mlx.h"
 # include "cub_types.h"
-# include <fcntl.h>
-# include <float.h>
-# include <math.h>
-# include <stdlib.h>
-# include <unistd.h>
 
 void	program_init(t_cub3d *pro, t_data *data);
-void 	init_player(t_cub3d *cub);
+void	init_player(t_cub3d *cub);
 int		program_clear(t_cub3d *pro);
 void	put_pixel_at(t_cub3d *pro, int x, int y, int color);
 int		get_texture_color(t_texture *texture, int x, int y);
@@ -60,4 +54,5 @@ void	cast_rays(t_cub3d *pro);
 void	draw_wall(t_cub3d *pro, int ray_index, t_ray_info *info);
 
 int		run(t_data *data);
+
 #endif

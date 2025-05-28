@@ -6,14 +6,16 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/27 20:35:38 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:38:00 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "check_error.h"
 #include "tools.h"
 #include "raycast.h"
 #include "cub3d.h"
+#include "mlx.h"
 
 static int	gameloop(void *arg)
 {
