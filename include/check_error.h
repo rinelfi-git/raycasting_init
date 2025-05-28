@@ -22,7 +22,7 @@ int		tk_texture(char *texture, char **buffer);
 int		checkchar(char *str, char c);
 int		tk_map(char *line, int fd, char ***map);
 
-void	arg_error(int code);
+void	arg_error(int ac, int code);
 void	check_lock(char ***map, int size, int len);
 int		init_check(t_cub3d *cub);
 

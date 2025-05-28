@@ -69,9 +69,9 @@ int	run(t_data *data)
 int	main(int ac, char **av)
 {
 	if (ac != 2)
-		arg_error(0);
+		arg_error(ac, 0);
 	if (invalid_config_file(av[1]))
-		arg_error(invalid_config_file(av[1]));
+		arg_error(ac, invalid_config_file(av[1]));
 	if (valid_map(av[1]))
 		ft_putstr_fd("map is valid🤩\n", 1);
 	return (0);

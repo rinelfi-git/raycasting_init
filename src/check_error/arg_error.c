@@ -16,16 +16,20 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-void	arg_error(int code)
+void	arg_error(int ac, int code)
 {
 	char	*dictionnary[4];
 
 	dictionnary[0] = "Command line should be: "
 		"./cub3D [path/to/the/config].cub\n";
-	dictionnary[1] = "Config file should be [config].cub\n";
+	dictionnary[1] = "Extension needed!\n Config file should be [config].cub\n";
 	dictionnary[2] = "Config file should be [config].cub\n";
-	dictionnary[3] = "Cannot open or missing config file\n";
+	dictionnary[3] = "Cannot open or missing config file🤕\n";
 	ft_putstr_fd("Error\n", 2);
+	if (ac < 2)
+		ft_putstr_fd("Too few argument🙅\n", 2);
+	else if (ac > 2)
+		ft_putstr_fd("Too many argument🙅\n", 2);
 	ft_putstr_fd(dictionnary[code], 2);
 	exit(EXIT_FAILURE);
 }
