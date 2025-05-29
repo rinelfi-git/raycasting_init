@@ -16,6 +16,20 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+int	ft_memcmp(char *s1, char *s2)
+{
+	int			i;
+
+	i = 0;
+	while (s1[i])
+	{
+		if (s1[i] != s2[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	arg_error(int ac, int code)
 {
 	char	*dictionnary[4];
@@ -71,7 +85,7 @@ int	invalid_config_file(char *name)
 	ext = get_extension(name);
 	if (!ext)
 		return (1);
-	if (ft_strncmp(ext, "cub", 4) != 0)
+	if (ft_memcmp(ext, "cub"))
 	{
 		free(ext);
 		return (2);

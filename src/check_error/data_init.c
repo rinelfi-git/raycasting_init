@@ -41,6 +41,8 @@ char	**lst_to_tab(t_map *lst)
 	while (lst)
 	{
 		map[size] = ft_strcpy(lst->line, len);
+		ft_putstr_fd(map[size], 1);
+		ft_putstr_fd("\n", 1);
 		size++;
 		lst = lst->next;
 	}
@@ -106,7 +108,7 @@ int	tk_map(char *line, int fd, char ***map)
 		i = 0;
 		while (line[i])
 		{
-			if (checkchar("10 NEWS\n", line[i]) || *line == '\n')
+			if (checkchar("10 NEWS\n", line[i]))
 				return (map_error(line, &lst));
 			i++;
 		}
