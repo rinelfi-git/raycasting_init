@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:58:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/31 18:21:43 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:37:39 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,24 @@ static char	*get_extension(char *path)
 {
 	int		point;
 	int		flag;
-	int		i;
+	int		start;
 	char	*ext;
 
 	point = -1;
 	flag = -1;
+	start = 0;
 	if (!path)
 		return (0);
 	while (path[++point])
 	{
-		if (path[point] == '.' && point != 0)
-			flag = point;
 		if (path[point] == '/')
-			flag = -1;
+			start = point + 1;
+		else if (path[point] == '.')
+			flag = point;
 	}
-	if (flag == -1)
+	if (flag == -1 || start == flag)
 		return (0);
 	ext = ft_strdup(path + flag + 1);
-	i = 0;
-	while (path[++flag])
-	{
-		if (path[flag] >= 'A' && path[flag] <= 'Z')
-			ext[i] = 'a' + (path[flag] - 'A');
-		i++;
-	}
 	return (ext);
 }
 
