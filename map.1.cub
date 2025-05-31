@@ -1,8 +1,18 @@
+NO ./textures/wolfenstein/blue_stone.xpm
+EA ./textures/wolfenstein/color_stone.xpm
+WE ./textures/wolfenstein/grey_stone.xpm
+SO ./textures/wolfenstein/mossy.xpm
 
+F 12,12,12
+C 210,210,210
+ 1
+101
+ 1
+ 
  1
 1011
  1N01
- 1111111
+ 1011111
 100000001
 1001111011
 1100000001
@@ -33,8 +43,3 @@
 100000000001
 11111011101
      1   1
-
-
-
-
-
