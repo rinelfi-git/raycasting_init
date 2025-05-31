@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:39 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/31 17:03:22 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:04:38 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ char	**lst_to_tab(t_map *lst)
 	while (lst)
 	{
 		map[size] = ft_strcpy(lst->line, len);
-		ft_putstr_fd(map[size], 1);
-		ft_putstr_fd("\n", 1);
 		size++;
 		lst = lst->next;
 	}
