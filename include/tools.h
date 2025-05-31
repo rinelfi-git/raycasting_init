@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:29:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/27 19:25:08 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 21:27:54 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "raycast.h"
 # include "cub_types.h"
 # include "check_error.h"
+# include "cub3d.h"
 
 typedef struct s_map
 {
@@ -29,6 +30,7 @@ void	free_tab(char	**tab, int i);
 void	ft_putstr_fd(char *str, int fd);
 void	ft_addback(t_map **map, t_map *line);
 
+int		data_ok(t_data *data);
 int		set_len(t_map *lst);
 int		map_error(char *line, t_map **lst);
 int		ft_lstsize(t_map *line);

@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:07:52 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 21:27:38 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 21:31:33 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_line(char *line, int fd, t_data *data)
 		j = tk_color(line + i + 1, &data->f);
 	else if (ft_strncmp("C", line + i, 1) && data->c < 0)
 		j = tk_color(line + i + 1, &data->c);
-	else if (info_ok(data) && !checkchar("01", line[i]))
+	else if (ft_strncmp("1", line + i, 2) && info_ok(data))
 		return (tk_map(line, fd, &data->map));
 	else
 		j = 5;
@@ -91,7 +91,8 @@ int	check_map(int fd, char *line)
 		}
 		line = get_next_line(fd);
 	}
-	run(&data);
+	if (data_ok(&data))
+		run(&data);
 	free_data(&data);
 	return (0);
 }
@@ -106,7 +107,11 @@ int	valid_map(char *path)
 		return (0);
 	line = get_next_line(fd);
 	if (!line)
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("File configuration is empty\n", 2);
 		return (0);
+	}
 	else if (check_map(fd, line))
 		return (0);
 	return (1);

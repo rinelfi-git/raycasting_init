@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/28 15:38:00 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 21:35:27 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,7 @@ int	main(int ac, char **av)
 		arg_error(ac, invalid_config_file(av[1]));
 	if (valid_map(av[1]))
 		ft_putstr_fd("map is valid🤩\n", 1);
+	else
+		ft_putstr_fd("Error\nInvalid config file\n", 2);
 	return (0);
 }
