@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:58:09 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/28 15:10:02 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:18:47 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*get_extension(char *path)
 		return (0);
 	while (path[++point])
 	{
-		if (path[point] == '.')
+		if (path[point] == '.' && point != 0)
 			flag = point;
 	}
 	if (flag == -1)
