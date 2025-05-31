@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:39 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 21:28:02 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:03:22 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	tk_map(char *line, int fd, char ***map)
 		i = 0;
 		while (line[i])
 		{
-			if (checkchar("10 NEWS\n", line[i]))
+			if (checkchar("10 NEWS\n", line[i]) || empty_line(line))
 				return (map_error(line, &lst));
 			i++;
 		}
