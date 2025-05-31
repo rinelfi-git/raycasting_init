@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:07:52 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/31 21:31:33 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 22:20:28 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_line(char *line, int fd, t_data *data)
 		j = tk_color(line + i + 1, &data->f);
 	else if (ft_strncmp("C", line + i, 1) && data->c < 0)
 		j = tk_color(line + i + 1, &data->c);
-	else if (ft_strncmp("1", line + i, 2) && info_ok(data))
+	else if (ft_strncmp("1", line + i, 1) && info_ok(data))
 		return (tk_map(line, fd, &data->map));
 	else
 		j = 5;
@@ -82,12 +82,13 @@ int	check_map(int fd, char *line)
 			free(line);
 			line = get_next_line(fd);
 		}
-		code = check_line(line, fd, &data);
+		if (line)
+			code = check_line(line, fd, &data);
 		if (code)
 		{
 			config_file_error(code);
 			free_data(&data);
-			return (1);
+			exit (EXIT_FAILURE);
 		}
 		line = get_next_line(fd);
 	}

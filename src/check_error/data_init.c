@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:34:39 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/31 18:04:38 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 22:20:34 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	tk_texture(char *texture, char **buffer)
 		return (1);
 	i = skipe(texture, 0);
 	j = 0;
-	while (checkchar("\t \n", texture[i + j]))
+	while (texture[i + j] && checkchar("\t \n", texture[i + j]))
 		j++;
 	if (j > 0 && ft_strncmp("./", texture + i, 2))
 		*buffer = (char *)malloc(sizeof(char) * (j + 1));

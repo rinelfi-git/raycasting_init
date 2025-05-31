@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:28:40 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/19 20:49:38 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 21:59:51 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	ft_strncmp(char *s1, char *s2, int n)
 			return (0);
 		i++;
 	}
-	if (s2[i] == '\0' || s2[i] == '\n')
-		return (0);
 	if (n == i)
 		return (1);
 	return (0);

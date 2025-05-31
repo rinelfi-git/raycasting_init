@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = gcc
-CARG = -Werror -Wextra -Wall -g
+CARG = -Werror -Wextra -Wall
 INCs = -I./include -I./minilibx-linux
 SRCs =  ./src/check_error/get_next_line/get_next_line_utils.c \
 		./src/check_error/get_next_line/get_next_line.c \
@@ -41,6 +41,10 @@ all: $(NAME)
 clean:
 	rm -rf $(OBJs)
 	rm -rf ./minilibx-linux/*.o
+
+run: $(NAME)
+	@$(CC) $(CARG) -g $(OBJs) $(LIBs) -o $(NAME)
+	@valgrind ./cub3D map.1.cub 
 
 fclean: clean
 	rm -rf $(NAME)
