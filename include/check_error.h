@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:03:57 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/27 19:42:03 by erijania         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:34:55 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int		tk_map(char *line, int fd, char ***map);
 void	arg_error(int ac, int code);
 void	check_lock(char ***map, int size, int len);
 int		init_check(t_cub3d *cub);
-int	    empty_line(char *line);
+int		empty_line(char *line);
 #endif
