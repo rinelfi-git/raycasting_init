@@ -28,6 +28,7 @@ void	init_will_hurt_var(t_will_hurt_var *var, t_player *player)
 int	player_will_hurt_wall(t_cub3d *pro, char dir)
 {
 	t_will_hurt_var	var;
+	char			tile;
 
 	init_will_hurt_var(&var, pro->player);
 	if (dir == MOVE_UP)
@@ -39,7 +40,11 @@ int	player_will_hurt_wall(t_cub3d *pro, char dir)
 	else if (dir == MOVE_RIGHT)
 		check_hurt_right(&var, pro->player);
 	if (var.map_x >= 0 && var.map_y >= 0)
-		return (pro->map[var.map_y / BLOCK_SIZE][var.map_x
-			/ BLOCK_SIZE] == '1');
+	{
+		tile = pro->map[var.map_y / BLOCK_SIZE][var.map_x
+			/ BLOCK_SIZE];
+		return (tile == '1' || tile == ' ' || tile == 0);
+	}
+		
 	return (1);
 }
