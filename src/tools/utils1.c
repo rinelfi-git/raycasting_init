@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 10:28:40 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/31 21:59:51 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 13:14:05 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,9 @@ int	ft_atoi(char *str)
 	nb = 0;
 	while (!checkchar(" \t", str[i]))
 		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			return (-1);
-		i++;
-	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		nb = nb * 10 + str[i] - '0';
+		nb = nb * 10 + (str[i] - '0');
 		i++;
 	}
 	if (nb > 255 || (str[i] && str[i] != '\n'))
