@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:02:47 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/28 15:32:45 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 11:01:38 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define BLOCK_SIZE 1024
 # define TEXTURE_SIZE 64
 # define MOVE_STEP 5
-# define TURN_STEP 0.005
+# define TURN_STEP 0.002
 # define PI 3.141592653589793
 # define MOVE_UP 'w'
 # define MOVE_DOWN 's'
