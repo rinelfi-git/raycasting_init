@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:07:52 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/31 22:20:28 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:18:28 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	valid_map(char *path)
 	{
 		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd("File configuration is empty\n", 2);
-		return (0);
+		exit(1);
 	}
 	else if (check_map(fd, line))
 		return (0);
