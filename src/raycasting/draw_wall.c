@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:10:24 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/28 15:36:45 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:30:57 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	compute_texture_x(t_draw_wall_var *var, t_ray_info *info)
 	{
 		var->texture_x = (int)(info->hit_x / (BLOCK_SIZE / TEXTURE_SIZE))
 			% TEXTURE_SIZE;
-		if (info->angle > PI)
+		if ((info->angle > PI && info->angle < 2 * PI) || info->angle < 0)
 			var->texture_x = TEXTURE_SIZE - 1 - (int)var->texture_x;
 	}
 	else

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/03 10:11:33 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/31 21:35:27 by erijania         ###   ########.fr       */
+/*   Created: 2025/06/02 14:29:47 by tramanan          #+#    #+#             */
+/*   Updated: 2025/06/05 15:28:27 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 #include "raycast.h"
 #include "cub3d.h"
 #include "mlx.h"
+
+static void	init_data(t_data *data)
+{
+	data->north = NULL;
+	data->south = NULL;
+	data->weast = NULL;
+	data->east = NULL;
+	data->f = -1;
+	data->c = -1;
+	data->map = NULL;
+}
 
 static int	gameloop(void *arg)
 {
@@ -68,13 +79,13 @@ int	run(t_data *data)
 
 int	main(int ac, char **av)
 {
-	if (ac != 2)
-		arg_error(ac, 0);
-	if (invalid_config_file(av[1]))
-		arg_error(ac, invalid_config_file(av[1]));
-	if (valid_map(av[1]))
-		ft_putstr_fd("map is valid🤩\n", 1);
-	else
-		ft_putstr_fd("Error\nInvalid config file\n", 2);
+	t_data	data;
+
+	init_data(&data);
+	if (ac != 2 || !valid_name(av[1]))
+		arg_error(ac, av);
+	if (valid_file(av[1], &data))
+		run(&data);
+	free_data(&data);
 	return (0);
 }

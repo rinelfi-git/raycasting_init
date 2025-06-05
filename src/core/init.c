@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 10:05:15 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/31 22:11:02 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:35:10 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	program_init(t_cub3d *cub, t_data *data)
 	cub->textures[SOUTH] = new_texture(mlx, data->north);
 	cub->textures[WEST] = new_texture(mlx, data->east);
 	cub->textures[NORTH] = new_texture(mlx, data->south);
-	cub->textures[EAST] = new_texture(mlx, data->west);
+	cub->textures[EAST] = new_texture(mlx, data->weast);
 	cub->c = data->c;
 	cub->f = data->f;
 	cub->map = map_dup(data->map);

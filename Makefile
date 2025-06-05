@@ -5,9 +5,9 @@ INCs = -I./include -I./minilibx-linux
 SRCs =  ./src/check_error/get_next_line/get_next_line_utils.c \
 		./src/check_error/get_next_line/get_next_line.c \
 		./src/check_error/arg_error.c \
-		./src/check_error/check_lock.c \
+		./src/check_error/check_file.c \
 		./src/check_error/check_map.c \
-		./src/check_error/data_init.c \
+		./src/check_error/def_data.c \
 		./src/check_error/init_check.c \
 		./src/core/draw.c \
 		./src/core/init.c \
@@ -42,15 +42,21 @@ clean:
 	rm -rf $(OBJs)
 	rm -rf ./minilibx-linux/*.o
 
-run: $(NAME)
-	@$(CC) $(CARG) -g $(OBJs) $(LIBs) -o $(NAME)
-	@valgrind ./cub3D map.1.cub 
-
 fclean: clean
 	rm -rf $(NAME)
 	rm -rf ./minilibx-linux/*.a
 
 re: fclean all
+
+run : $(NAME)
+	@$(CC) $(CARG) -g $(OBJs) $(LIBs) -o $(NAME)
+	@echo "\033[32mok compilation\033[0m"
+	@./cub3D map.1.cub
+
+v : $(NAME)
+	@$(CC) $(CARG) -g $(OBJs) $(LIBs) -o $(NAME)
+	@echo "\033[33mok compilation\033[0m"
+	@valgrind --leak-check=full -s -q ./$(NAME) map.1.cub
 
 %.o: %.c
 	$(CC) $(CARG) -O3 $(INCs) -c $< -o $@
@@ -58,4 +64,4 @@ re: fclean all
 $(LIB_MLX) :
 	make -C ./minilibx-linux/
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re run v

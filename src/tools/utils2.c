@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
+/*   By: erijania <erijania@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 14:52:28 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/23 21:28:25 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:59:20 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
-#include "check_error.h"
 
 void	ft_addback(t_map **map, t_map *line)
 {
@@ -28,19 +27,36 @@ void	ft_addback(t_map **map, t_map *line)
 	}
 }
 
-int	info_ok(t_data *data)
-{
-	if (!data->north || !data->south || !data->east || !data->west
-		|| data->f < 0 || data->c < 0)
-		return (0);
-	return (1);
-}
-
 int	map_error(char *line, t_map **lst)
 {
 	free_list(*lst);
 	free(line);
-	return (3);
+	return (4);
+}
+
+int	is_nb_valid(char **res, int len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < len)
+	{
+		j = 0;
+		if (!empty_line(res[i]))
+		{
+			while (res[i][j])
+			{
+				if (!ft_isdigit(res[i][j]) && res[i][j] != '\n')
+					return (0);
+				j++;
+			}
+		}
+		else
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 char	*ft_strcpy(char *s, int l_src)

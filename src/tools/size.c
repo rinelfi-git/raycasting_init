@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   size.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
+/*   By: tramanan <tramanan@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 11:18:15 by tramanan          #+#    #+#             */
-/*   Updated: 2025/05/19 21:40:48 by erijania         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:20:35 by tramanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	ft_tabsize(char **src)
 {
 	int	i;
 
-	if (!src)
-		return (0);
 	i = 0;
+	if (!src)
+		return (i);
 	while (src[i])
 		i++;
 	return (i);

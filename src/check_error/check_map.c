@@ -3,117 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
+/*   By: tramanan <tramanan@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 12:07:52 by tramanan          #+#    #+#             */
-/*   Updated: 2025/06/05 10:18:28 by erijania         ###   ########.fr       */
+/*   Created: 2025/06/03 00:15:42 by tramanan          #+#    #+#             */
+/*   Updated: 2025/06/03 00:28:12 by tramanan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "check_error.h"
-#include "tools.h"
-#include "cub3d.h"
 
-int	checkchar(char *str, char c)
+static void	invalid_map(char ***map, int size)
+{
+	free_tab((*map), size);
+	*map = NULL;
+}
+
+static int	check_player(char ***map, int size, int len)
 {
 	int	i;
+	int	j;
+	int	p;
 
 	i = 0;
-	while (str[i])
+	p = 0;
+	while (i < size)
 	{
-		if (c == str[i])
-			return (0);
+		j = 0;
+		while (j < len)
+		{
+			if (!checkchar("NEWS", (*map)[i][j]))
+				p++;
+			j++;
+		}
 		i++;
 	}
-	return (1);
+	if (p != 1)
+		return (4);
+	return (0);
 }
 
-int	empty_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	if (!line)
-		return (0);
-	while (!checkchar("\t\n ", line[i]))
-		i++;
-	if (line[i] != '\0')
-		return (0);
-	return (1);
-}
-
-int	check_line(char *line, int fd, t_data *data)
+static int	check_column(char ***map, int size, int len)
 {
 	int	i;
 	int	j;
 
 	j = 0;
-	i = skipe(line, 0);
-	if (ft_strncmp("NO", line + i, 2) && !data->north)
-		j = tk_texture(line + i + 2, &data->north);
-	else if (ft_strncmp("SO", line + i, 2) && !data->south)
-		j = tk_texture(line + i + 2, &data->south);
-	else if (ft_strncmp("WE", line + i, 2) && !data->west)
-		j = tk_texture(line + i + 2, &data->west);
-	else if (ft_strncmp("EA", line + i, 2) && !data->east)
-		j = tk_texture(line + i + 2, &data->east);
-	else if (ft_strncmp("F", line + i, 1) && data->f < 0)
-		j = tk_color(line + i + 1, &data->f);
-	else if (ft_strncmp("C", line + i, 1) && data->c < 0)
-		j = tk_color(line + i + 1, &data->c);
-	else if (ft_strncmp("1", line + i, 1) && info_ok(data))
-		return (tk_map(line, fd, &data->map));
-	else
-		j = 5;
-	free (line);
-	return (j);
-}
-
-int	check_map(int fd, char *line)
-{
-	t_data	data;
-	int		code;
-
-	init_data(&data);
-	while (line)
+	while (j < len)
 	{
-		while (empty_line(line))
+		i = 0;
+		while (i < size)
 		{
-			free(line);
-			line = get_next_line(fd);
+			while (i < size && (*map)[i][j] == ' ')
+				i++;
+			if ((i < size && (*map)[i][j] != '1'))
+				return (3);
+			while (i < size && !checkchar("10NEWS", (*map)[i][j]))
+				i++;
+			if (i <= size && checkchar(" 1", (*map)[i - 1][j]))
+				return (3);
+			i++;
 		}
-		if (line)
-			code = check_line(line, fd, &data);
-		if (code)
-		{
-			config_file_error(code);
-			free_data(&data);
-			exit (EXIT_FAILURE);
-		}
-		line = get_next_line(fd);
+		j++;
 	}
-	if (data_ok(&data))
-		run(&data);
-	free_data(&data);
 	return (0);
 }
 
-int	valid_map(char *path)
+static int	check_arrow(char ***map, int size, int len)
 {
-	int		fd;
-	char	*line;
+	int	i;
+	int	j;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	line = get_next_line(fd);
-	if (!line)
+	i = 0;
+	while (i < size)
 	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("File configuration is empty\n", 2);
-		exit(1);
+		j = 0;
+		while (j < len)
+		{
+			while (j < len && (*map)[i][j] == ' ')
+				j++;
+			if ((*map)[i][j] && (*map)[i][j] != '1')
+				return (3);
+			while (!checkchar("10NEWS", (*map)[i][j]))
+				j++;
+			if (j <= len && checkchar(" 1", (*map)[i][j - 1]))
+				return (3);
+		}
+		i++;
 	}
-	else if (check_map(fd, line))
-		return (0);
-	return (1);
+	return (0);
+}
+
+void	check_map(char ***map, int size, int len)
+{
+	if (check_arrow(map, size, len)
+		|| check_column(map, size, len)
+		|| check_player(map, size, len))
+		invalid_map(map, size);
 }

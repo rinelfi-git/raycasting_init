@@ -5,33 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 21:00:26 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/31 21:52:57 by erijania         ###   ########.fr       */
+/*   Created: 2025/06/02 18:31:59 by tramanan          #+#    #+#             */
+/*   Updated: 2025/06/05 15:30:22 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tools.h"
 
-int	data_ok(t_data *data)
+int	checkchar(char *str, char c)
 {
-	if (!data->map || !info_ok(data))
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		free_data(data);
-		ft_putstr_fd("Error\nInvalid config file\n", 2);
-		exit (EXIT_FAILURE);
+		if (c == str[i])
+			return (0);
+		i++;
 	}
 	return (1);
 }
 
-void	config_file_error(int code)
+int	ft_memcmp(char *s1, char *s2)
 {
-	char	*msg[5];
+	int			i;
 
-	msg[0] = "Allowed texture config: ID path/to/image.xpm\n";
-	msg[1] = "Allowed color config: ID [0-255],[0-255],[0-255]\n";
-	msg[2] = "Map configuration error\n";
-	msg[3] = "Player configuration error\n";
-	msg[4] = "Invalid config file\n";
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(msg[code - 1], 2);
+	i = 0;
+	while (s1[i])
+	{
+		if (s1[i] != s2[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (!line)
+		return (0);
+	while (!checkchar("\t\n ", line[i]))
+		i++;
+	if (line[i] != '\0')
+		return (0);
+	return (1);
 }

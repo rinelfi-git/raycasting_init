@@ -6,7 +6,7 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 23:16:42 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/27 20:05:58 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:31:50 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ int	player_will_hurt_wall(t_cub3d *pro, char dir)
 			/ BLOCK_SIZE];
 		return (tile == '1' || tile == ' ' || tile == 0);
 	}
-		
 	return (1);
 }

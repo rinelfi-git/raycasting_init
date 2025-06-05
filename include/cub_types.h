@@ -6,12 +6,14 @@
 /*   By: erijania <erijania@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:39:30 by erijania          #+#    #+#             */
-/*   Updated: 2025/05/28 15:33:36 by erijania         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:27:42 by erijania         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_TYPES_H
 # define CUB_TYPES_H
+
+# include "cub3d.h"
 
 typedef struct s_cub3d			t_cub3d;
 typedef struct s_pix			t_pix;
@@ -22,7 +24,6 @@ typedef struct s_ray_info		t_ray_info;
 typedef enum e_direction		t_dir;
 typedef struct s_key_event		t_key_event;
 typedef struct s_texture		t_texture;
-typedef struct s_data			t_data;
 
 typedef struct s_will_hurt_var	t_will_hurt_var;
 typedef struct s_draw_wall_var	t_draw_wall_var;
@@ -155,14 +156,4 @@ struct							s_ray_info
 	float						angle;
 };
 
-struct s_data
-{
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	int		f;
-	int		c;
-	char	**map;
-};
 #endif
